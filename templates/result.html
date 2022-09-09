@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/sanitize.css">
+    <link rel="stylesheet" href="static/css/swiper.css">
+    <link rel="stylesheet" href="static/css/result.css">
+    <title>自動観光ルート</title>
+    <meta name = "description" content = "text">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <div>
+            <a href = '/'>戻る</a>
+        </div>
+
+
+        <div>
+            <strong>観光地の選択</strong>
+            {{ pop }}
+        </div>
+        <div>
+            <strong>訪問順序</strong>
+            {{ opt_order }}
+        </div>
+        <div>
+            <strong>訪問順序</strong>
+            {{ solution }}
+        </div>
+        <div>
+            <strong>総移動時間</strong>
+            {{ total_move_time }}
+        </div>
+        <div>
+            <strong>総時間</strong>
+            {{ total_time }}
+        </div>
+        <div>
+            <strong>観光ルート</strong>
+            {{ visit_spot }}
+        </div>
+        
+    </div>
+
+</body>
+</html>
