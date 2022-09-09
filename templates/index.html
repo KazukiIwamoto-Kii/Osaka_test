@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/sanitize.css">
+    <link rel="stylesheet" href="static/css/swiper.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <title>大阪弾丸ツアー</title>
+    <meta name = "description" content = "text">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <h1 id = "servicename">大阪弾丸ツアー</h1>
+        </div>
+        <nav class="header-menu">
+            <ul class = "header-menu-list">
+                <li class="header-menu-item"><a href='/search'>探す</a></li>
+                <li class="header-menu-item"><a href='/plan'>計画</a></li>
+                <li class="header-menu-item"><a href='/course'>コース</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img id = "image" src="./static/images/Namba.jpg" alt="難波の写真">
+                </div>
+                <div class="swiper-slide">
+                    <img id = "image" src="./static/images/Osaka_castle.jpg" alt="大阪城の写真">
+                </div>
+                <div class = "swiper-slide">
+                    <img id = "image" src="./static/images/USJ.jpg" alt="USJの写真">
+                </div>
+                <div class="swiper-slide">
+                    <img id = "image" src="./static/images/Takoyaki.jpg" alt="たこ焼きの写真">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-scrollbar"></div>
+        </div> -->
+        
+        <div>
+            <form action ='/result' method = "POST" class = "form">
+                <!-- <input type="text" name = "name" placeholder="行きたい場所"> -->
+                <div class = "pic1">
+                    <input type="checkbox" name = "name1" id = "name1" value = "1"><label for = "name1">海遊館</label>
+                </div>
+                <div class = "pic2">
+                    <input type="checkbox" name = "name2" id = "name2" value = "2"><label for="name2">万博公園</label>
+                </div>
+                <div class = "pic3">
+                    <input type="checkbox" name = "name3" id = "name3" value = "3"><label for="name3">USJ</label>
+                </div>
+                <div class = "pic4">
+                    <input type="checkbox" name = "name4" id = "name4" value = "4"><label for="name4">なんば</label>
+                </div>
+                <div class = "pic5">
+                    <input type="checkbox" name = "name5" id = "name5" value = "5"><label for="name5">梅田</label>
+                </div>
+                <div class = "pic6">
+                    <input type="checkbox" name = "name6" id = "name6" value = "6"><label for="name6">長居公園</label>
+                </div>
+                <div class = "pic7">
+                    <input type="checkbox" name = "name7" id = "name7" value = "7"><label for="name7">天王寺</label>
+                </div>
+                <div class = "pic8">
+                    <input type="checkbox" name = "name8" id = "name8" value = "8"><label for="name8">大阪城</label>
+                </div>
+                <div class = "pic9">
+                    <input type="checkbox" name = "name9" id = "name9" value = "9"><label for="name9">新世界</label>
+                </div>
+                <!-- <input type="text" name = "Start_position" placeholder="開始場所">
+                <input type="text" name = "Finish_position" placeholder="終了場所"> -->
+    <!--             
+                <input type="time" name="Start_time" placeholder="開始時刻">
+                <input type="time" name="Finish_time" placeholder="終了時刻"> -->
+    
+                <input type="submit" value="自動生成">
+            </form>
+        </div>
+
+
+    </main>
+
+    <footer>
+        <p>&copy;HK</p>
+    </footer>
+
+    <!-- <script src = "static/js/swiper.js"></script> -->
+    <script src = "static/js/index.js"></script>
+</body>
+</html>
