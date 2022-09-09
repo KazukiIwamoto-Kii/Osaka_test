@@ -1,0 +1,175 @@
+@charset "utf-8";
+
+/* 全体 */
+body {
+    font-family: 'Noto Sans JP', sans-serif, "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #333;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* ヘッダー */
+header {
+    background-color: #fcfcfc;
+    width: 100%;
+    height: 64px;
+    position: fixed;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 6px 1px rgb(0 0 0 / 20);
+}
+
+.header-left{
+    display: flex;
+    text-align: center;
+    width: 275px;
+    height: 100%;
+}
+
+#servicename{
+    margin-bottom: 0px;
+    margin-top: 8px;
+}
+
+.header-menu{
+    height: 100%;
+}
+
+
+.header-menu-list{
+    margin-top: 16px;
+    margin-bottom: 16px;
+    position: relative;
+    display: flex;
+    width: 500px;
+}
+
+.header-menu-item{
+    border-width: 0 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 34px;
+    cursor: pointer;
+    border-style: solid;
+    border-color: #32323c;
+}
+
+.header-menu-item a{
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+/* スワイプメニュー */
+.swiper-wrapper{
+    width: 100%;
+    height: 500px !important;
+    margin-top: 60px;
+    position: relative;
+    display: flex;
+}
+
+.swiper-slide{
+    color: #fff;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    line-height: 500px;
+}
+
+.swiper-slide:nth-child(3n + 1){
+    background-color: rgb(66, 66, 66);
+}
+
+.swiper-slide:nth-child(3n + 2){
+    background-color: #9b9b9b;
+}
+
+.swiper-slide:nth-child(3n + 3){
+    background-color: #b8b8b8;
+}
+
+
+
+/* メニュー */
+.image{
+    text-align: center;
+    padding: 20px;
+}
+
+.imageback{
+    display: inline-block;
+    background-color: #fff;
+    border: 8px;
+    border-color: #666;
+    width: 100%;
+}
+
+#image{
+    width: 100%;
+    height: 500px;
+}
+
+
+
+#InputSpot {
+    background-image: url('/css/searchicon.png');
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 60%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+  
+#ULSpot {
+    list-style-type: none;
+    padding: 0px;
+    width: 20%;
+    margin-left: 20%;
+    margin-top: 0;
+}
+ul#ULSpot li {
+      padding: 0;
+
+}
+
+#ULSpot li a {
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    background-color: #f6f6f6;
+    padding: 2px;
+    margin-bottom: 2px;
+    text-decoration: none;
+    font-size: 10px;
+    color: rgb(142, 142, 142);
+    display: block;
+    border-radius: 4px;
+}
+  
+#ULSpot li a:hover:not(.header) {
+    background-color: #c8e4ff;
+}
+
+.form{
+    padding-top: 100px;
+}
+
+#name1 :after{
+    content: url(http://Kaiyukann.jpg);
+}
