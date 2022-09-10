@@ -329,8 +329,8 @@ def item(name1, name2, name3, name4, name5, name6, name7, name8, name9):
     selection.append(a8)
     selection.append(a9)
 
-    a = 0.5
-    c = 0.2
+    a = 5
+    c = 2
     d = []
     for i in selection:
         d.append(i* 0.1)
