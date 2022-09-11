@@ -6,6 +6,9 @@ git init
 #リモートリポジトリのクローン
 git clone https://github.com/KazukiIwamoto-Kii/Osaka_test.git
 
+#リモートリポジトリとの紐づけ
+git remote add origin https://github.com/KazukiIwamoto-Kii/Osaka_test.git
+
 #ブランチの作成(sub1はかぶらなければなんでもいい)
 git branch sub1
 
