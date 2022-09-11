@@ -1,0 +1,56 @@
+ファイルの作成
+
+#Gitリポジトリの作成
+git init
+
+#リモートリポジトリのクローン
+git clone https://github.com/KazukiIwamoto-Kii/Osaka_test.git
+
+#ブランチの作成(sub1はかぶらなければなんでもいい)
+git branch sub1
+
+#ブランチの移動
+git checkout sub1
+
+#ブランチの確認
+git branch
+
+#ファイルの更新(index.htmlは変更したファイル名)
+git add index.html
+
+#コミット(ローカルに登録)(""内は変更した内容を記載)
+git commit -m "Change index.html"
+
+#ブランチにプッシュ(更新)
+git push origin sub1
+
+#ブランチからプル(コードの取得)
+git pull
+
+#ブランチをmasterに切り替え
+git checkout master
+
+#ブランチのマージ(取り込み)
+git merge sub1
+
+#Githubにプッシュ(更新)
+git push origin master
+
+
+
+
+
+
+
+
+
+#ファイルの新規登録
+git checkout master
+git add new.html
+git commit -m "add file new.heml"
+git push origin master
+
+
+
+#ブランチの削除
+git branch -d sub1
