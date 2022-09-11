@@ -1,4 +1,5 @@
-ファイルの作成
+#Desktopへ移動
+cd Desktop
 
 #Gitリポジトリの作成
 git init
@@ -6,8 +7,10 @@ git init
 #リモートリポジトリのクローン
 git clone https://github.com/KazukiIwamoto-Kii/Osaka_test.git
 
-#リモートリポジトリとの紐づけ
-git remote add origin https://github.com/KazukiIwamoto-Kii/Osaka_test.git
+#Osaka_testフォルダに移動
+cd Osaka_test
+
+#デスクトップからOsaka_testフォルダをvscodeで開く
 
 #ブランチの作成(sub1はかぶらなければなんでもいい)
 git branch sub1
