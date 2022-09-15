@@ -75,7 +75,7 @@ header {
 
 
 /* スワイプメニュー */
-.swiper-wrapper{
+/* .swiper-wrapper{
     width: 100%;
     height: 500px !important;
     margin-top: 60px;
@@ -89,9 +89,9 @@ header {
     height: auto;
     text-align: center;
     line-height: 500px;
-}
+} */
 
-.swiper-slide:nth-child(3n + 1){
+/* .swiper-slide:nth-child(3n + 1){
     background-color: rgb(66, 66, 66);
 }
 
@@ -101,7 +101,7 @@ header {
 
 .swiper-slide:nth-child(3n + 3){
     background-color: #b8b8b8;
-}
+} */
 
 
 
@@ -167,6 +167,40 @@ ul#ULSpot li {
 } */
 
 .form{
-    padding-top: 100px;
+    padding-top: 70px;
+}
+
+.select_menu{
+    width: 80%;
+    height: 500px;
+    background-color: aqua;
+    position: fixed;
+}
+
+.select1{
+    position: relative;
+    top: 5px;
+    left: 5%;
+}
+
+.select2{
+    position: absolute;
+    top: 5px;
+    left: 30%;
+}
+
+.select3{
+    position: absolute;
+    top: 5px;
+    left: 55%;
+}
+
+#pic{
+    width: 20%;
+    height: auto;
+}
+
+.check{
+    /* text-align: center; */
 }
 
