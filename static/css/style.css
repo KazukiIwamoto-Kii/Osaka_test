@@ -171,64 +171,67 @@ ul#ULSpot li {
 }
 
 .select_menu{
-    width: 60%;
-    height: 500px;
-    background-color: rgba(239, 239, 239, 0.758);
+    width: 70%;
+    left: 15%;
+    height: 480px;
+    background-color: #fcfcfc;
+    border: 1px solid #212121;
+    border-radius: 10px;
     position: fixed;
 }
 
 .select1{
     position: absolute;
     top: 10px;
-    left: 15%;
+    left: 10%;
 }
 
 .select2{
     position: absolute;
     top: 10px;
-    left: 35%;
+    left: 30%;
 }
 
 .select3{
     position: absolute;
     top: 10px;
-    left: 55%;
+    left: 50%;
 }
 
 .select4{
     position: absolute;
     top: 160px;
-    left: 15%;
+    left: 10%;
 }
 
 .select5{
     position: absolute;
     top: 160px;
-    left: 35%;
+    left: 30%;
 }
 
 .select6{
     position: absolute;
     top:160px;
-    left: 55%;
+    left: 50%;
 }
 
 .select7{
     position: absolute;
     top: 310px;
-    left: 15%;
+    left: 10%;
 }
 
 .select8{
     position: absolute;
     top: 310px;
-    left: 35%;
+    left: 30%;
 }
 
 .select9{
     position: absolute;
     top: 310px;
-    left: 55%;
+    left: 50%;
 }
 
 #pic{
@@ -271,6 +274,49 @@ input[type="checkbox"]:checked + label{
     color: #121212;
 }
 
-.submit_button{
-    margin-top: 500px;
+.button {
+    padding: 15px 25px;
+    border: unset;
+    border-radius: 15px;
+    color: #212121;
+    z-index: 1;
+    background: #e8e8e8;
+    position: relative;
+    top: 210px;
+    left: 68%;
+    font-weight: 1000;
+    font-size: 24px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms;
+    overflow: hidden;
+}
+   
+.button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #212121;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms;
+}
+   
+.button:hover {
+    background-color: #32323c;
+    color: #e8e8e8;
+}
+
+.button:hover::before {
+    width: 100%;
+}
+
+footer{
+    margin-top: 450px;
+    text-align: center;
 }
