@@ -16,19 +16,19 @@ cd Osaka_test
 git branch sub1
 
 #ブランチの移動
-git checkout sub1
+git checkout git_test
 
 #ブランチの確認
 git branch
 
 #ファイルの更新(index.htmlは変更したファイル名)
-git add index.html
+git add git.txt
 
 #コミット(ローカルに登録)(""内は変更した内容を記載)
-git commit -m "Change index.html"
+git commit -m "test git.txt"
 
 #ブランチにプッシュ(更新)
-git push origin sub1
+git push origin git_test
 
 #ブランチからプル(コードの取得)
 git pull
@@ -37,7 +37,7 @@ git pull
 git checkout master
 
 #ブランチのマージ(取り込み)
-git merge sub1
+git merge git_test
 
 #Githubにプッシュ(更新)
 git push origin master
