@@ -1,5 +1,5 @@
 #Desktopへ移動
-cd Desktop
+cd ~/Desktop
 
 #Gitリポジトリの作成
 git init
