@@ -1,3 +1,4 @@
+from queue import PriorityQueue
 import random
 import copy
 from stringprep import in_table_d1
@@ -169,7 +170,7 @@ distance_matrix = np.array([[0.0, 2.0, 2.2, 1.8, 1.5, 0.7, 1.0, 0.2, 3.0, 2.5, 1
 #print(distance_matrix)
 a = 0.5
 c = 0.2
-sentaku =  [1, 0, 0, 1, 0, 0, 0, 0, 1] #selection
+sentaku =  [1, 0, 0, 1, 0, 0, 0, 0, 1]
 d = []
 for i in sentaku:
   d.append(i* 0.1)
@@ -191,7 +192,6 @@ syoyouzikan = [1.5, 0.5, 0.5, 0.9, 6.0, 2.0, 1.0, 0.3, 4.0, 3.0, 2.5, 1.3, 4.0, 
 ITEMS = []
 for i in range(30):
   ITEMS.append((syoyouzikan[i], yuusendo[i]))
-#print(ITEMS)
 
 '''8/28追加 ココマデ'''
 # テストデータ
@@ -209,8 +209,8 @@ print(t)'''
 #ITEMS = [(random.randint(0, 15), random.randint(0, 100)) for i in range (10)]
 print('ITEMS:', ITEMS)
 MAX_TIME = 10
-MAX_WEIGHT = MAX_TIME - 3  # 制限時間
-N = 100         # 個体数
+MAX_WEIGHT = MAX_TIME - 0 # 制限時間
+N = 20         # 個体
 GENERATION = 20 # 世代数
 
 # グラフ用リスト
@@ -309,56 +309,87 @@ def local_search(visit_order, distance_matrix, improve_func):
 
 
 print(sim.print_population()) #最終結果のインデックスをリストとして表示([[0,1,5,9], [0,2,5,8]]的な)
-print(sim.print_population()[0]) #最終結果のインデックスのリストの0番目を表示(上の例だったら[0,1,5,9])
+#
+#print(sim.print_population()[0]) #最終結果のインデックスのリストの0番目を表示(上の例だったら[0,1,5,9])
 kouho = len(sim.print_population()) #地点の候補(1のときもあるしたくさんあるときもある、上の例だと2)
 NO = []
-for k in range(kouho):
-    NO.append(len(sim.print_population()[k])) #それぞれの候補地の数(上の例だと[4, 4])
-print(NO)
-#MAP_SIZE = 100
 
+def reload_function(kouho):
+    reload = 0
+    appear = []
+    for k in range(kouho):
+        NO.append(len(sim.print_population()[k])) #それぞれの候補地の数(上の例だと[4, 4])
+        #print(NO)
 
-for k in range(kouho):
-    x = []
-    z = []
-    for i in sim.print_population()[k]:
-        for j in sim.print_population()[k]:
-            x.append(distance_matrix[i,j])
-    y = np.array(x)
-    z = y.reshape(NO[k],NO[k]) #新たに行列を生成
+        x = []
+        z = []
+        for i in sim.print_population()[k]:
+            for j in sim.print_population()[k]:
+                x.append(distance_matrix[i,j])
+        y = np.array(x)
+        z = y.reshape(NO[k],NO[k]) #新たに行列を生成
 
-    #print(z)
-#試しに距離を計算してみる
-    test_order = list(np.random.permutation(NO[k]))
-#print('訪問順序 = {}'.format(test_order))
+        #print(z)
+    #試しに距離を計算してみる
+        test_order = list(np.random.permutation(NO[k]))
+        #print('訪問順序 = {}'.format(test_order))
 
-    total = calculate_total_distance(test_order, z)
-    #print('試しの総移動時間 = {}'.format(total))
-# 近傍を計算
-    improved = local_search(test_order, z, improve_with_2opt) #訪問順序を返す
-#visualize_visit_order(improved, city_xy)
-    total_distance = calculate_total_distance(improved, z)
-    #print('訪問順序 = {}'.format(improved))
-    seisiki = []
-    for m in improved:
-        seisiki.append(sim.print_population()[k][m])
-    print('正式な訪問地 = {}'.format(seisiki))
-    kai2 = []
-    for l in seisiki:
-        print(str(l) + 'での活動目安時間 : ' + str(ITEMS[l][0]))
-        kai2.append(ITEMS[l][0])
-    for n in range(NO[k]-1):
-        print(str(seisiki[n]) + "から" + str(seisiki[n+1]) + "の移動時間 : " +str(z[improved[n]][improved[n+1]]))
+        total = calculate_total_distance(test_order, z)
+        #print('試しの総移動時間 = {}'.format(total))
+    # 近傍を計算
+        improved = local_search(test_order, z, improve_with_2opt) #訪問順序を返す
+    #visualize_visit_order(improved, city_xy)
+        total_distance = calculate_total_distance(improved, z)
+        #print('訪問順序 = {}'.format(improved))
+        seisiki = []
+        for m in improved:
+            seisiki.append(sim.print_population()[k][m])
+        print('正式な訪問地 = {}'.format(seisiki))
+        kai2 = []
+        for l in seisiki:
+            print(str(l) + 'での活動目安時間 : ' + str(ITEMS[l][0]))
+            kai2.append(ITEMS[l][0])
+        for n in range(NO[k]-1):
+            print(str(seisiki[n]) + "から" + str(seisiki[n+1]) + "の移動時間 : " +str(z[improved[n]][improved[n+1]]))
 
-    #print('近傍探索適用後の総移動時間 = {}'.format(total_distance))
-    kai = total_distance - z[improved[0]][improved[NO[k]-1]]
-    print('近傍探索適用後の総移動時間(戻ってこない) = {}'.format(kai))
+        #print('近傍探索適用後の総移動時間 = {}'.format(total_distance))
+        kai = total_distance - z[improved[0]][improved[NO[k]-1]]
+        print('近傍探索適用後の総移動時間(戻ってこない) = {}'.format(kai))
     
-    '''8/28追加 ココカラ'''
-    if MAX_TIME >= kai + sum(kai2):
-        print('すべて合わせた時間 = {}'.format(kai + sum(kai2)))
-    else:
-        print('ボツ')
-    print('               ')
+        '''8/28追加 ココカラ'''
+        if MAX_TIME >= kai + sum(kai2):
+            print('すべて合わせた時間 = {}'.format(kai + sum(kai2)))
+            priority = 0
+            for l in seisiki:
+                priority += ITEMS[l][1]
+            print('優先度 = {}'.format(priority))
+            appear.append((seisiki, priority))
+            reload += 1
+        else:
+            print('ボツ')
+        print('               ')
 
-    '''8/28追加 ココマデ'''
+        '''8/28追加 ココマデ'''
+    print(reload) #これが0なら再実行
+    print(appear) #正式な訪問順序と優先度が入った配列
+    appear.sort(key = lambda x: x[1], reverse=True)  #優先度でソート
+    print(appear) #ソートした結果
+    return reload
+
+'''9/15追加 ココカラ'''
+
+answer_count = reload_function(kouho)
+while answer_count == 0: #満たす解がなかったら
+    try_count = 2
+    sim = Simulation(ITEMS, MAX_WEIGHT, N) #もう一回シミュレーションクラス動かす
+    for i in range(GENERATION):
+    #print('generation:', i)
+        g_list.append(i+1)
+        sim.solve()
+    print('最終結果' + str(try_count) + '回目')
+    try_count += 1
+    kouho = len(sim.print_population()) #地点の候補(1のときもあるしたくさんあるときもある、上の例だと2)
+    NO = [] 
+    answer_count = reload_function(kouho) #もう一回関数動かす
+
+'''9/15追加 ココマデ'''
