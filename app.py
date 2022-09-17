@@ -331,7 +331,7 @@ def item(name1, name2, name3, name4, name5, name6, name7, name8, name9):
     selection.append(a9)
 
     a = 60
-    c = 5
+    c = 20
 
     
     p = [0.4, 0.3, 0.2, 0.9, 0.5, 0.8, 0.1, 0.1, 0.7] #priority(人気度)
