@@ -167,7 +167,7 @@ ul#ULSpot li {
 } */
 
 .form{
-    padding-top: 70px;
+    padding-top: 90px;
 }
 
 .select_menu{
@@ -317,6 +317,6 @@ input[type="checkbox"]:checked + label{
 }
 
 footer{
-    margin-top: 450px;
+    margin-top: 420px;
     text-align: center;
 }
