@@ -60,3 +60,6 @@ git push origin master
 
 #ブランチの削除
 git branch -d sub1
+
+#コードの取得
+git pull origin master
