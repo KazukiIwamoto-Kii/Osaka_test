@@ -170,7 +170,7 @@ distance_matrix = np.array([[0.0, 2.0, 2.2, 1.8, 1.5, 0.7, 1.0, 0.2, 3.0, 2.5, 1
 #print(distance_matrix)
 a = 0.5
 c = 0.2
-sentaku =  [1, 0, 0, 1, 0, 0, 0, 0, 1]
+sentaku =  [1, 0, 0, 1, 0, 0, 0, 0, 1] #selection
 d = []
 for i in sentaku:
   d.append(i* 0.1)
