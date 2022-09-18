@@ -373,6 +373,7 @@ def home():
 @app.route('/result', methods = ['GET', 'POST'])
 def result():
     if request.method == 'POST':
+        # 入力情報の取得
         name1 = request.form.get('name1')
         name2 = request.form.get('name2')
         name3 = request.form.get('name3')

@@ -89,9 +89,9 @@ header {
     height: auto;
     text-align: center;
     line-height: 500px;
-} */
+}
 
-/* .swiper-slide:nth-child(3n + 1){
+.swiper-slide:nth-child(3n + 1){
     background-color: rgb(66, 66, 66);
 }
 
