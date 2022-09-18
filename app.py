@@ -451,8 +451,8 @@ def result():
             visit_spot.append(spot_name)
 
         for i in range(kouho):
-            if total_time[i] >= MAX_TIME:
-                pop[i] = 0
+            if total_time[i] >= MAX_TIME: #制限時間超えたら0にする
+                pop[i] = 0 
                 opt_order[i] = 0
                 total_move_time[i] = 0
                 total_time[i] = 0
