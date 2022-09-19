@@ -4,6 +4,7 @@ import copy
 from stringprep import in_table_d1
 import numpy as np
 from statistics import mean
+import math
 
 
 app = Flask(__name__)
@@ -251,8 +252,8 @@ distance_matrix = np.array([
 MAX_TIME = 600
 
 MAX_WEIGHT = MAX_TIME * 0.7  # 制限時間
-N = 100          # 個体数
-GENERATION = 100 # 世代数
+N = 50          # 個体数
+GENERATION = 50 # 世代数
 
 # グラフ用リスト
 g_list = []
@@ -331,17 +332,18 @@ def item(name1, name2, name3, name4, name5, name6, name7, name8, name9):
     selection.append(a9)
 
     a = 60
-    c = 20
+    c = 2
 
     
-    p = [0.4, 0.3, 0.2, 0.9, 0.5, 0.8, 0.1, 0.1, 0.7] #priority(人気度)
+    p = [4, 3, 2, 9, 5, 8, 1, 1, 7, 5, 3, 4, 2, 1, 5, 8, 9, 2, 1, 3, 6, 8, 3, 4, 5, 2, 4, 6, 7, 8] #priority(人気度)
+
     sougo_kankei = []
     for i in range(9):
         for j in range(30):
             if distance_matrix[i,j] != 0:
-                sougo_kankei.append(a/distance_matrix[i,j] + c*p[i] + selection[i])
+                sougo_kankei.append(a/distance_matrix[i,j] + c*p[j] + selection[i])
             else:
-                sougo_kankei.append(a/1.0 + c*p[i] + selection[i])
+                sougo_kankei.append(a/5.0 + c*p[j] + selection[i])
     sougo_kankei2 = np.array(sougo_kankei)
     sougo_kankei3 = np.round(sougo_kankei2.reshape(9,30)) #相互関係行列
     #print(sougo_kankei3)
@@ -458,8 +460,14 @@ def result():
                 total_time[i] = 0
                 solution[i] = 0
                 visit_spot[i] = 0
+    start_time = 600
+    start_hour = math.floor(start_time / 60)
+    start_min = int(start_time % 60)
+    start_minutes = f'{start_min:02}'
+    
             
-    return render_template('result.html', pop = pop, opt_order = opt_order, total_move_time = total_move_time, total_time = total_time, solution = solution, visit_spot = visit_spot)
+    return render_template('result.html', pop = pop, opt_order = opt_order, total_move_time = total_move_time, total_time = total_time, 
+                                        solution = solution, visit_spot = visit_spot, start_hour = start_hour, start_minutes = start_minutes)
         
 
 if __name__ == "__main__":
