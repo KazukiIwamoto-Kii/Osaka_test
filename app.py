@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, flash, get_flashed_messages, redirect, session, url_for
 import random
 import copy
-from stringprep import in_table_d1
+#from stringprep import in_table_d1
 import numpy as np
 from statistics import mean
 import math
@@ -90,8 +90,8 @@ class Simulation:
     # ナップサック問題を解く（=GAで個体群を進化させる）
     def solve(self):
         # 平均適応度，最大適応度をリストに追加
-        mean_list.append(self.mean_fitness())
-        max_list.append(self.max_fitness())
+        # mean_list.append(self.mean_fitness())
+        # max_list.append(self.max_fitness())
         
         # 適応度計算
         for agent in self.population:
@@ -118,7 +118,7 @@ class Simulation:
         for i in self.population:
             ind = [i for i, x in enumerate(i.gene) if x == 1]
             ind1.append(ind)
-            arr = list(map(list, set(map(tuple, ind1))))
+            arr = list(map(list, set(map(tuple, ind1)))) #最終結果のインデックスをリストとして表示([[0,1,5,9], [0,2,5,8]]的な)
             #ind2 = set(ind1)
         return arr
     
@@ -251,22 +251,15 @@ distance_matrix = np.array([
 
 MAX_TIME = 600
 
-MAX_WEIGHT = MAX_TIME * 0.7  # 制限時間
-N = 50          # 個体数
+MAX_WEIGHT = MAX_TIME * 1.0  # 制限時間
+N = 50        # 個体数
 GENERATION = 50 # 世代数
 
-# グラフ用リスト
-g_list = []
-mean_list = []
-max_list = []
-
-
 #選択された観光地を表示
-#cal = [[0, 1, 3, 5, 6, 7], [0, 1, 3, 5, 6]]
+#cal(ITEMS) = [[0, 1, 3, 5, 6, 7], [0, 1, 3, 5, 6]]
 def cal(ITEMS):
     sim = Simulation(ITEMS, MAX_WEIGHT, N) 
     for i in range(GENERATION):
-        g_list.append(i+1)
         sim.solve()
     return sim.print_population()
 
@@ -332,27 +325,26 @@ def item(name1, name2, name3, name4, name5, name6, name7, name8, name9):
     selection.append(a9)
 
     a = 60
-    c = 2
+    c = 20
 
     
     p = [4, 3, 2, 9, 5, 8, 1, 1, 7, 5, 3, 4, 2, 1, 5, 8, 9, 2, 1, 3, 6, 8, 3, 4, 5, 2, 4, 6, 7, 8] #priority(人気度)
-
-    sougo_kankei = []
+    mutualRelationship = [] #相互関係行列(横に長い1行)
     for i in range(9):
         for j in range(30):
             if distance_matrix[i,j] != 0:
-                sougo_kankei.append(a/distance_matrix[i,j] + c*p[j] + selection[i])
+                mutualRelationship.append(a/distance_matrix[i,j] + c*p[j] + selection[i])
             else:
-                sougo_kankei.append(a/5.0 + c*p[j] + selection[i])
-    sougo_kankei2 = np.array(sougo_kankei)
-    sougo_kankei3 = np.round(sougo_kankei2.reshape(9,30)) #相互関係行列
+                mutualRelationship.append(a/5.0 + c*p[j] + selection[i])
+    mutualRelationship = np.array(mutualRelationship)
+    mutualRelationship_reshape = np.round(mutualRelationship.reshape(9,30)) #相互関係行列
     #print(sougo_kankei3)
-    yuusendo = np.dot(selection, sougo_kankei3) #優先度
+    priority_matrix = np.dot(selection, mutualRelationship_reshape) #優先度
     #print(yuusendo)
-    syoyouzikan = [180, 120, 480, 60, 120, 60, 60, 90, 30, 150, 360, 60, 150, 60, 60, 30, 90, 30, 60, 90, 30, 240, 150, 30, 90, 240, 60, 90, 300, 180] 
+    requiredTime = [180, 120, 480, 60, 120, 60, 60, 90, 30, 150, 360, 60, 150, 60, 60, 30, 90, 30, 60, 90, 30, 240, 150, 30, 90, 240, 60, 90, 300, 180] #想定される各地点での所要時間
     ITEMS = []
     for i in range(30):
-        ITEMS.append((syoyouzikan[i], yuusendo[i]))
+        ITEMS.append((requiredTime[i], priority_matrix[i]))
     
     return ITEMS
 
@@ -365,109 +357,120 @@ spot_list = { 0 : "海遊館", 1 : "万博公園", 2 : "USJ", 3 : "なんば", 4
                 25 : "空庭温泉", 26 : "生野コリアンタウン", 27 : "エキスポシティ", 28 : "ひらかたパーク", 29 : "ハーベストの丘"}
 
 
-@app.route('/', methods = ['GET', 'POST'])
+@app.route('/', methods = ['GET', 'POST'])#メイン画面
 def home():
     return render_template('index.html')
 
 
 
 
-@app.route('/result', methods = ['GET', 'POST'])
+@app.route('/result', methods = ['GET', 'POST'])#結果画面
 def result():
-    if request.method == 'POST':
-        # 入力情報の取得
-        name1 = request.form.get('name1')
-        name2 = request.form.get('name2')
-        name3 = request.form.get('name3')
-        name4 = request.form.get('name4')
-        name5 = request.form.get('name5')
-        name6 = request.form.get('name6')
-        name7 = request.form.get('name7')
-        name8 = request.form.get('name8')
-        name9 = request.form.get('name9')
+    reload = 0
+    trial = 0
+    appear = [] #表示用
+    while reload == 0:
+        trial += 1
+        if request.method == 'POST':
+            # 入力情報の取得
+            name1 = request.form.get('name1')
+            name2 = request.form.get('name2')
+            name3 = request.form.get('name3')
+            name4 = request.form.get('name4')
+            name5 = request.form.get('name5')
+            name6 = request.form.get('name6')
+            name7 = request.form.get('name7')
+            name8 = request.form.get('name8')
+            name9 = request.form.get('name9')
 
-        N = 30 #観光地候補数
-        ITEMS = item(name1, name2, name3, name4, name5, name6, name7, name8, name9)
-        pop = cal(ITEMS) #選択された観光地を表示
-        kouho = len(pop) #ルートの候補数(例：2)
-
-        No = [] #各ルートの訪問観光地数
-        for k in range(kouho):
-            No.append(len(pop[k])) #それぞれの候補地の数
-        
-        first_order = []
-        opt_order = []
-        best_order = []
-        solution = []
-        move_time = []
-        total_move_time = []
-        required_time = []
-        total_time = []
-        
-
-        for k in range(kouho):
-            x = []
-            z = []
-            for i in pop[k]:
-                for j in pop[k]:
-                    x.append(distance_matrix[i,j])
-            y = np.array(x) #訪問予定の距離(1 × n^2)
-            z = y.reshape(No[k],No[k]) #距離行列(No × No)
-
-            #初期解をランダムに生成
-            first_order = list(np.random.permutation(No[k]))
-
-            #2-opt法の適応
-            #最適訪問順序
-            opt_order.append(local_search(first_order, z, improve_with_2opt))
-
-            #最適総移動時間
-            total_move_time.append(calculate_total_distance(opt_order[k], z))
-
+            N = 30 #観光地候補数
+            ITEMS = item(name1, name2, name3, name4, name5, name6, name7, name8, name9)
+            pop = cal(ITEMS) #選択された観光地を表示[[0, 1, 3, 5, 6, 7], [0, 1, 3, 5, 6]]
+            candidateCount = len(pop) #ルートの候補数(例：2)
+            reload = candidateCount #判定用の変数(これが0になったらもう一度)
+            No = [] #各ルートの訪問観光地数
+          
+            #first_order = []
+            opt_order = []
             best_order = []
-            #正式な訪問順序
-            for m in opt_order[k]:
-                best_order.append(pop[k][m])
-            solution.append(best_order)
+            solution = []
+            move_time = []
+            total_move_time = []
+            required_time = []
+            total_time = []
+            
+            visit_spot = []
+            
+            for k in range(candidateCount):
+                No.append(len(pop[k])) #それぞれの候補地の数(上の例だと[6, 5])
 
-            each_required_time = []
-            #各観光地での所要時間
-            for l in best_order:
-                each_required_time.append(ITEMS[l][0])
-            required_time.append(each_required_time)
-            
-            each_move_time= []
-            #各観光地間の移動時間
-            for n in range(No[k]-1):
-                each_move_time.append(z[opt_order[k][n]][opt_order[k][n+1]])
-            move_time.append(each_move_time)
-            
-            # 近傍探索適用後の総移動時間(戻ってこない)
-            total_time.append(total_move_time[k] - z[opt_order[k][0]][opt_order[k][No[k]-1]] + sum(each_required_time))
-        
-        visit_spot = []
-        for k in range(kouho):
-            spot_name = []
-            for l in range(len(pop[k])):
-                spot_name.append(spot_list[solution[k][l]])
-            visit_spot.append(spot_name)
+                x = []
+                new_distance_matrix = []
+                for i in pop[k]:
+                    for j in pop[k]:
+                        x.append(distance_matrix[i,j])
+                y = np.array(x) #訪問予定の距離(1 × n^2)
+                new_distance_matrix = y.reshape(No[k],No[k]) #距離行列(No × No)
 
-        for i in range(kouho):
-            if total_time[i] >= MAX_TIME: #制限時間超えたら0にする
-                pop[i] = 0 
-                opt_order[i] = 0
-                total_move_time[i] = 0
-                total_time[i] = 0
-                solution[i] = 0
-                visit_spot[i] = 0
-    start_time = 600
-    start_hour = math.floor(start_time / 60)
-    start_min = int(start_time % 60)
-    start_minutes = f'{start_min:02}'
-    
+                #初期解をランダムに生成
+                first_order = list(np.random.permutation(No[k]))
+
+                #2-opt法の適応
+                #最適訪問順序
+                opt_order.append(local_search(first_order, new_distance_matrix, improve_with_2opt))
+
+                #最適総移動時間
+                total_move_time.append(calculate_total_distance(opt_order[k], new_distance_matrix))
+
+                best_order = []
+                #正式な訪問順序
+                for m in opt_order[k]:
+                    best_order.append(pop[k][m])
+                solution.append(best_order)
+
+                each_required_time = []
+                #各観光地での所要時間
+                for l in best_order:
+                    each_required_time.append(ITEMS[l][0])
+                required_time.append(each_required_time)
+                
+                each_move_time= []
+                #各観光地間の移動時間
+                for n in range(No[k]-1):
+                    each_move_time.append(new_distance_matrix[opt_order[k][n]][opt_order[k][n+1]])
+                move_time.append(each_move_time)
+                
+                # 近傍探索適用後の総移動時間(戻ってこない)
+                total_time.append(total_move_time[k] - new_distance_matrix[opt_order[k][0]][opt_order[k][No[k]-1]] + sum(each_required_time))
             
-    return render_template('result.html', pop = pop, opt_order = opt_order, total_move_time = total_move_time, total_time = total_time, 
-                                        solution = solution, visit_spot = visit_spot, start_hour = start_hour, start_minutes = start_minutes)
+         
+                spot_name = []
+                for l in range(len(pop[k])):
+                    spot_name.append(spot_list[solution[k][l]])
+                visit_spot.append(spot_name)
+                priority = 0
+                for l in best_order:
+                    priority += ITEMS[l][1]
+                appear.append([best_order, priority])
+      
+                if total_time[k] >= MAX_TIME: #制限時間超えたら0にする
+                    pop[k] = 0 
+                    opt_order[k] = 0
+                    total_move_time[k] = 0
+                    total_time[k] = 0
+                    solution[k] = 0
+                    visit_spot[k] = 0
+                    appear[k][1] = 0
+                    reload -= 1
+        start_time = 600
+        start_hour = math.floor(start_time / 60)
+        start_min = int(start_time % 60)
+        start_minutes = f'{start_min:02}'
+
+        appear.sort(key = lambda x: x[1], reverse=True)  #優先度でソート
+            
+    return render_template('result.html', trial = trial, pop = pop, opt_order = opt_order, solution = solution, total_move_time = total_move_time, total_time = total_time, 
+                                         visit_spot = visit_spot, appear = appear, start_hour = start_hour, start_minutes = start_minutes)
         
 
 if __name__ == "__main__":
