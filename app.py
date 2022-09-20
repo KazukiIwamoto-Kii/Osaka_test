@@ -139,7 +139,7 @@ class Simulation:
         return max(fitness)
 
 
-
+"""こっからセールスマン問題"""
 #経路決定部分
 
 #総移動距離の計算モジュール
@@ -250,8 +250,7 @@ distance_matrix = np.array([
 
 
 MAX_TIME = 600
-
-MAX_WEIGHT = MAX_TIME * 1.0  # 制限時間
+MAX_WEIGHT = MAX_TIME * 0.7  # 制限時間
 N = 50        # 個体数
 GENERATION = 50 # 世代数
 
@@ -259,7 +258,7 @@ GENERATION = 50 # 世代数
 #cal(ITEMS) = [[0, 1, 3, 5, 6, 7], [0, 1, 3, 5, 6]]
 def cal(ITEMS):
     sim = Simulation(ITEMS, MAX_WEIGHT, N) 
-    for i in range(GENERATION):
+    for _ in range(GENERATION):
         sim.solve()
     return sim.print_population()
 
@@ -338,9 +337,9 @@ def item(name1, name2, name3, name4, name5, name6, name7, name8, name9):
                 mutualRelationship.append(a/5.0 + c*p[j] + selection[i])
     mutualRelationship = np.array(mutualRelationship)
     mutualRelationship_reshape = np.round(mutualRelationship.reshape(9,30)) #相互関係行列
-    #print(sougo_kankei3)
+    
     priority_matrix = np.dot(selection, mutualRelationship_reshape) #優先度
-    #print(yuusendo)
+    
     requiredTime = [180, 120, 480, 60, 120, 60, 60, 90, 30, 150, 360, 60, 150, 60, 60, 30, 90, 30, 60, 90, 30, 240, 150, 30, 90, 240, 60, 90, 300, 180] #想定される各地点での所要時間
     ITEMS = []
     for i in range(30):
