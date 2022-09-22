@@ -6,8 +6,8 @@ import numpy as np
 from statistics import mean
 import math
 
-
 app = Flask(__name__)
+
 
 
 #観光地選択部分
@@ -403,6 +403,9 @@ def result():
         total_move_time = []
         required_time = []
         total_time = []
+
+        hour = []
+        minutes = []
         
 
         for k in range(kouho):
@@ -442,8 +445,26 @@ def result():
                 each_move_time.append(z[opt_order[k][n]][opt_order[k][n+1]])
             move_time.append(each_move_time)
             
+            
             # 近傍探索適用後の総移動時間(戻ってこない)
             total_time.append(total_move_time[k] - z[opt_order[k][0]][opt_order[k][No[k]-1]] + sum(each_required_time))
+
+            # 9/22 追加 ココから
+            h = []
+            min = []
+
+            time = 600 # 開始時刻
+
+            for n in range(No[k]-1):
+                h.append(math.floor(time / 60))
+                min.append('{0:02}'.format(time % 60))
+                time += move_time[k][n] + required_time[k][n]
+            h.append(math.floor(time / 60))
+            min.append('{0:02}'.format(time % 60))
+            hour.append(h)
+            minutes.append(min)
+
+            #9/22 追加 ココまで
         
         visit_spot = []
         for k in range(kouho):
@@ -460,14 +481,14 @@ def result():
                 total_time[i] = 0
                 solution[i] = 0
                 visit_spot[i] = 0
-    start_time = 600
-    start_hour = math.floor(start_time / 60)
-    start_min = int(start_time % 60)
-    start_minutes = f'{start_min:02}'
+                hour[i] = 0
+                minutes[i] = 0
+
+
     
             
     return render_template('result.html', pop = pop, opt_order = opt_order, total_move_time = total_move_time, total_time = total_time, 
-                                        solution = solution, visit_spot = visit_spot, start_hour = start_hour, start_minutes = start_minutes)
+                                        solution = solution, visit_spot = visit_spot, hour = hour, minutes = minutes)
         
 
 if __name__ == "__main__":
