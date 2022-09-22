@@ -30,7 +30,22 @@
         <div class = "result">
 
             <div class = "schedule">
+                {% for k in range(candidateCount) %}
+                {% for n in range(No[k]) %}
+                {% if hour[k] != 0 %}
+                {{ hour[k][n] }} : {{ minutes[k][n] }}  {{ visit_spot[k][n] }}
+                <br>
+                {% endif %}
+                {% endfor %}
+                <br>
+                {% endfor %}
+                <br>
+
                 <div class = "start_time">{{ hour }}:{{ minutes }}<span>{{ visit_spot }}</span></div>
+                <div>
+                    <strong>試行回数(後で消す)</strong>
+                    {{ trial }}
+                </div>
                 <div>
                     <strong>観光地の選択</strong>
                     {{ pop }}
@@ -54,6 +69,10 @@
                 <div>
                     <strong>観光ルート</strong>
                     {{ visit_spot }}
+                </div>
+                <div>
+                    <strong>優先度順にソート(後で消す)</strong>
+                    {{ appear }}
                 </div>
             </div>
 
