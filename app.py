@@ -453,10 +453,11 @@ def result():
                 for l in range(len(pop[k])):
                     spot_name.append(spot_list[solution[k][l]])
                 visit_spot.append(spot_name)
+
                 priority = 0
                 for l in best_order:
                     priority += ITEMS[l][1]
-                appear.append([best_order, priority])
+                appear.append([spot_name, priority])
 
                 # 9/22 追加 ココから
                 h = []
