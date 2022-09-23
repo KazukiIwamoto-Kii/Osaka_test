@@ -324,17 +324,17 @@ def item(name1, name2, name3, name4, name5, name6, name7, name8, name9):
     selection.append(a9)
 
     a = 60
-    c = 20
-
+    b = 10
+    c = 1
     
     p = [4, 3, 2, 9, 5, 8, 1, 1, 7, 5, 3, 4, 2, 1, 5, 8, 9, 2, 1, 3, 6, 8, 3, 4, 5, 2, 4, 6, 7, 8] #priority(人気度)
     mutualRelationship = [] #相互関係行列(横に長い1行)
     for i in range(9):
         for j in range(30):
             if distance_matrix[i,j] != 0:
-                mutualRelationship.append(a/distance_matrix[i,j] + c*p[j] + selection[i])
+                mutualRelationship.append(a/distance_matrix[i,j] + c*p[j] +  b*selection[i])
             else:
-                mutualRelationship.append(a/5.0 + c*p[j] + selection[i])
+                mutualRelationship.append(a/0.1 + c*p[j] + b*selection[i])
     mutualRelationship = np.array(mutualRelationship)
     mutualRelationship_reshape = np.round(mutualRelationship.reshape(9,30)) #相互関係行列
     
