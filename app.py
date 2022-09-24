@@ -1,3 +1,5 @@
+from faulthandler import cancel_dump_traceback_later
+from itertools import count
 from flask import Flask, render_template, request, flash, get_flashed_messages, redirect, session, url_for
 import random
 import copy
@@ -250,9 +252,9 @@ distance_matrix = np.array([
 
 
 MAX_TIME = 600
-MAX_WEIGHT = MAX_TIME * 0.7  # 制限時間
-N = 50        # 個体数
-GENERATION = 50 # 世代数
+MAX_WEIGHT = MAX_TIME * 0.8  # 制限時間
+N = 100        # 個体数
+GENERATION = 150 # 世代数
 
 #選択された観光地を表示
 #cal(ITEMS) = [[0, 1, 3, 5, 6, 7], [0, 1, 3, 5, 6]]
@@ -365,12 +367,12 @@ def home():
 
 @app.route('/result', methods = ['GET', 'POST'])#結果画面
 def result():
-    reload = 0
-    trial = 0
-    appear = [] #表示用
-    while reload == 0:
-        trial += 1
-        if request.method == 'POST':
+    if request.method == 'POST':
+        reload = 0
+        trial = 0
+        appear = [] #表示用
+        while reload == 0:
+            trial += 1
             # 入力情報の取得
             name1 = request.form.get('name1')
             name2 = request.form.get('name2')
@@ -402,10 +404,8 @@ def result():
 
             visit_spot = []
 
-            # 9/22 ks
             hour = []
             minutes = []
-            #9/22 kf
             
             for k in range(candidateCount):
                 x = []
@@ -457,9 +457,9 @@ def result():
                 priority = 0
                 for l in best_order:
                     priority += ITEMS[l][1]
-                appear.append([spot_name, priority])
+                
 
-                # 9/22 追加 ココから
+                # 予想到着時刻
                 h = []
                 min = []
 
@@ -473,9 +473,8 @@ def result():
                 min.append('{0:02}'.format(time % 60))
                 hour.append(h)
                 minutes.append(min)
-
-                #9/22 追加 ココまで
-
+                
+                appear.append([spot_name, priority, h, min])
                     
         
                 if total_time[k] >= MAX_TIME: #制限時間超えたら0にする
@@ -490,10 +489,28 @@ def result():
                     appear[k][1] = 0
                     reload -= 1
 
-        appear.sort(key = lambda x: x[1], reverse=True)  #優先度でソート
-                
+            appear.sort(key = lambda x: x[1], reverse=True)  #優先度でソート
+        
+        # 時間制約に違反した候補を消去する
+        count = 0
+        while count < candidateCount:
+            if appear[count][1] == 0:
+                appear.pop(count)
+                count -= 1
+                candidateCount -=1
+            count += 1
+        
+        # appearの各候補における観光地数(Noをappearの順に変更)
+        length_appear = []
+        for p in range(len(appear)):
+            length_appear.append(len(appear[p][0]))
+        
+        # 表示する候補の制限(最大３ルートまで表示)
+        length_disp = np.min([3, len(appear)])
+
     return render_template('result.html', trial = trial, pop = pop, opt_order = opt_order, solution = solution, total_move_time = total_move_time, total_time = total_time, 
-                                         visit_spot = visit_spot, appear = appear, hour = hour, minutes = minutes, candidateCount = candidateCount, No = No)
+                                         visit_spot = visit_spot, appear = appear, hour = hour, minutes = minutes, candidateCount = candidateCount, No = No, 
+                                         length_appear = length_appear, length_disp = length_disp)
         
 
 if __name__ == "__main__":
