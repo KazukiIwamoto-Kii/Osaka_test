@@ -329,7 +329,20 @@ def item(name1, name2, name3, name4, name5, name6, name7, name8, name9):
     b = 10
     c = 1
     
-    p = [4, 3, 2, 9, 5, 8, 1, 1, 7, 5, 3, 4, 2, 1, 5, 8, 9, 2, 1, 3, 6, 8, 3, 4, 5, 2, 4, 6, 7, 8] #priority(人気度)
+    p = [0] * 30 
+    k = 0
+    for i in selection:
+        if i == 1:
+            for j in range(30):
+                if distance_matrix[k,j] != 0:
+                    p[j] += 10/distance_matrix[k,j]
+                else:
+                    p[j] += 10
+            k += 1
+        else:
+            k += 1
+      
+    # p = [4, 3, 2, 9, 5, 8, 1, 1, 7, 5, 3, 4, 2, 1, 5, 8, 9, 2, 1, 3, 6, 8, 3, 4, 5, 2, 4, 6, 7, 8] #priority(人気度)
     mutualRelationship = [] #相互関係行列(横に長い1行)
     for i in range(9):
         for j in range(30):
