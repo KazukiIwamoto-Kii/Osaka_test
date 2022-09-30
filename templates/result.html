@@ -45,14 +45,14 @@
                     <div class="panel tab{{ k }} is-show">
                         {% for n in range(length_appear[k]) %}
                             <div class = "data_spot">{{ appear[k][2][n] }} : {{ appear[k][3][n] }}<span class = "spot">{{ appear[k][0][n] }}</span></div>
-                            <br>
+                            <p>|</p>
                         {% endfor %}
                     </div>
                 {% else %}
                     <div class="panel tab{{ k }}">
                         {% for n in range(length_appear[k]) %}
                             <div class = "data_spot">{{ appear[k][2][n] }} : {{ appear[k][3][n] }}<span class = "spot">{{ appear[k][0][n] }}</span></div>
-                            <br>
+                            <p>|</p>
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -64,7 +64,7 @@
             <a href = '/'>観光地選択に戻る</a>
         </div>
 
-        <div class = "test">
+        <!-- <div class = "test">
             <div>
                 <strong>試行回数(後で消す)</strong>
                 {{ trial }}
@@ -100,7 +100,7 @@
 
             <div class="map">
 
-            </div>
+            </div> -->
             
         </div>
     </main>

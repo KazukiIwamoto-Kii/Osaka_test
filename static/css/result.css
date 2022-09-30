@@ -78,16 +78,17 @@ header {
 
 /* タブ */
 .tab-panel{
-    padding-top: 70px;
-    width: 60%;
-    margin: 0 20%;
+    padding-top: 90px;
+    width: 70%;
+    margin: 0 15%;
     justify-content: center;
+    height: 700px;
 }
 
 .tab-group{
     display: flex;
     justify-content: center;
-    padding: 0px 20px;
+    padding: 0px 15%;
 }
 
 .tab{
@@ -106,15 +107,22 @@ header {
     border:solid 1px #CCC;
     border-top:none;
     background:rgb(244, 244, 244);
-    border-radius: 20px;
+    border-radius: 5px;
     border: solid 1px #333;
 }
 
 .panel{
-    display:none;  
-    padding: 10px 20px 0px 20px;
-
+    display:none;
+    padding: 20px;
 }
+
+p{
+    font-size: 15px;
+    font-weight: bolder;
+    padding: 0px 20px;
+    margin: 0px;
+}
+
 .tab.is-active{
     background:rgb(44, 44, 44);
     color:#FFF;
@@ -128,6 +136,7 @@ header {
 .data_spot{
     padding: 0px;
     font-weight: 400;
+    vertical-align: baseline;
 }
 
 .spot{

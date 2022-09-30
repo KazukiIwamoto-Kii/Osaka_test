@@ -78,7 +78,7 @@ header {
 
 
 .form{
-    padding-top: 90px;
+    padding-top: 100px;
 }
 
 .select_menu{
@@ -228,6 +228,6 @@ input[type="checkbox"]:checked + label{
 }
 
 footer{
-    margin-top: 420px;
+    margin-top: 450px;
     text-align: center;
 }
