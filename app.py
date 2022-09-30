@@ -381,10 +381,11 @@ def home():
 @app.route('/result', methods = ['GET', 'POST'])#結果画面
 def result():
     if request.method == 'POST':
-        reload = 0
-        trial = 0
+        reload = 0 # 候補数を記録
+        trial = 0 # 試行回数の記録
+        count = 0 # 時間制約違反を抜いた候補数
         appear = [] #表示用
-        while reload == 0:
+        while reload <= 3:
             trial += 1
             # 入力情報の取得
             name1 = request.form.get('name1')
@@ -401,14 +402,13 @@ def result():
             ITEMS = item(name1, name2, name3, name4, name5, name6, name7, name8, name9) #Spot情報の作成
             pop = cal(ITEMS) #選択された観光地を表示[[0, 1, 3, 5, 6, 7], [0, 1, 3, 5, 6]]
             candidateCount = len(pop) #ルートの候補数(例：2)
-            reload = candidateCount #判定用の変数(これが0になったらもう一度)
+            reload += candidateCount #判定用の変数(これが0になったらもう一度)
 
             No = [] #各ルートの訪問観光地数
             for k in range(candidateCount):
                 No.append(len(pop[k])) #それぞれの候補地の数
 
             opt_order = []
-            best_order = []
             solution = []
             total_move_time = []
             move_time = []
@@ -477,12 +477,15 @@ def result():
                 min = []
 
                 time = 600 # 開始時刻
+                lunch = 0
 
                 for n in range(No[k]-1):
                     h.append(math.floor(time / 60))
                     min.append('{0:02}'.format(time % 60))
-                    if time >= 750 and time < 810:
-                        time += 60
+                    if lunch == 0:
+                        if time >= 720:
+                            time += 60
+                        lunch += 1
                     time += move_time[k][n] + required_time[k][n]
                     
                     
@@ -504,17 +507,15 @@ def result():
                     hour[k] = 0
                     minutes[k] = 0
                     appear[k][1] = 0
-                    reload -= 1
 
             appear.sort(key = lambda x: x[1], reverse=True)  #優先度でソート
-        
+
         # 時間制約に違反した候補を消去する
-        count = 0
-        while count < candidateCount:
+        while count < reload:
             if appear[count][1] == 0:
                 appear.pop(count)
                 count -= 1
-                candidateCount -= 1
+                reload -= 1
             count += 1
         
         # appearの各候補における観光地数(Noをappearの順に変更)
