@@ -410,8 +410,8 @@ def result():
             opt_order = []
             best_order = []
             solution = []
-            move_time = []
             total_move_time = []
+            move_time = []
             required_time = []
             total_time = []
 
@@ -459,7 +459,7 @@ def result():
                 
                 
                 # 近傍探索適用後の総移動時間(戻ってこない)
-                total_time.append(total_move_time[k] - new_distance_matrix[opt_order[k][0]][opt_order[k][No[k]-1]] + sum(each_required_time))
+                total_time.append(total_move_time[k] - new_distance_matrix[opt_order[k][0]][opt_order[k][No[k]-1]] + sum(each_required_time) + 60)
 
 
                 spot_name = []
@@ -481,7 +481,11 @@ def result():
                 for n in range(No[k]-1):
                     h.append(math.floor(time / 60))
                     min.append('{0:02}'.format(time % 60))
+                    if time >= 750 and time < 810:
+                        time += 60
                     time += move_time[k][n] + required_time[k][n]
+                    
+                    
                 h.append(math.floor(time / 60))
                 min.append('{0:02}'.format(time % 60))
                 hour.append(h)
