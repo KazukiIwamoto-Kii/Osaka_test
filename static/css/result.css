@@ -74,46 +74,74 @@ header {
     text-decoration: none;
 }
 
+
+
+/* タブ */
 .tab-panel{
     padding-top: 70px;
+    width: 60%;
+    margin: 0 20%;
+    justify-content: center;
 }
 
 .tab-group{
     display: flex;
     justify-content: center;
+    padding: 0px 20px;
 }
+
 .tab{
     flex-grow: 1;
-    padding:5px;
+    padding: 5px;
     list-style:none;
     border:solid 1px #CCC;
+    border-radius: 3px;
     text-align:center;
     cursor:pointer;
+    font-weight: 600;
 }
+
 .panel-group{
     height:auto;
     border:solid 1px #CCC;
     border-top:none;
-    background:#eee;
+    background:rgb(244, 244, 244);
+    border-radius: 20px;
+    border: solid 1px #333;
 }
+
 .panel{
     display:none;  
+    padding: 10px 20px 0px 20px;
+
 }
 .tab.is-active{
-    background:#F00;
+    background:rgb(44, 44, 44);
     color:#FFF;
-    transition: all 0.2s ease-out;
+    transition: all 0.5s ease-out;
 }
+
 .panel.is-show{
     display:block;
+}
+
+.data_spot{
+    padding: 0px;
+    font-weight: 400;
+}
+
+.spot{
+    padding-left: 20px;
+    font-size: 22px;
+    font-weight: 600;
 }
 
 
 
 .result{
-    padding-top: 90px;
+    padding-top: 20px;
 }
 
 .test{
-    padding-top: 100px;
+    padding-top: 20px;
 }

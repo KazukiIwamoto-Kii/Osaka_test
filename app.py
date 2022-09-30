@@ -510,7 +510,7 @@ def result():
             if appear[count][1] == 0:
                 appear.pop(count)
                 count -= 1
-                candidateCount -=1
+                candidateCount -= 1
             count += 1
         
         # appearの各候補における観光地数(Noをappearの順に変更)

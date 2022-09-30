@@ -29,9 +29,13 @@
         <div class="tab-panel">
             <!--タブ-->
             <ul class="tab-group">
-                <li class="tab tab0 is-active">ルート１</li>
-                <li class="tab tab1">ルート２</li>
-                <li class="tab tab2">ルート３</li>
+                {% for k in range(length_disp) %}
+                {% if k == 0 %}
+                <li class="tab tab{{ k }} is-active">ルート{{ k+1 }}</li>
+                {% else %}
+                <li class="tab tab{{ k }}">ルート{{ k+1 }}</li>
+                {% endif %}
+                {% endfor %}
             </ul>
             
             <!--タブを切り替えて表示するコンテンツ-->
@@ -40,22 +44,24 @@
                 {% if k == 0 %}
                     <div class="panel tab{{ k }} is-show">
                         {% for n in range(length_appear[k]) %}
-                            {{ appear[k][2][n] }} : {{ appear[k][3][n] }} {{ appear[k][0][n] }}
+                            <div class = "data_spot">{{ appear[k][2][n] }} : {{ appear[k][3][n] }}<span class = "spot">{{ appear[k][0][n] }}</span></div>
                             <br>
                         {% endfor %}
-                        <br>
                     </div>
                 {% else %}
                     <div class="panel tab{{ k }}">
                         {% for n in range(length_appear[k]) %}
-                            {{ appear[k][2][n] }} : {{ appear[k][3][n] }} {{ appear[k][0][n] }}
+                            <div class = "data_spot">{{ appear[k][2][n] }} : {{ appear[k][3][n] }}<span class = "spot">{{ appear[k][0][n] }}</span></div>
                             <br>
                         {% endfor %}
-                        <br>
                     </div>
                 {% endif %}
                 {% endfor %}
             </div>
+        </div>
+
+        <div>
+            <a href = '/'>観光地選択に戻る</a>
         </div>
 
         <div class = "test">
@@ -99,9 +105,7 @@
         </div>
     </main>
 
-    <div>
-        <a href = '/'>観光地選択に戻る</a>
-    </div>
+
     <script src = "static/js/index.js"></script>
 
 </body>
