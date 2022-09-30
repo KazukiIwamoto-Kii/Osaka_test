@@ -251,14 +251,12 @@ distance_matrix = np.array([
     ])
 
 
-MAX_TIME = 600
-MAX_WEIGHT = MAX_TIME * 0.8  # 制限時間
 N = 100        # 個体数
 GENERATION = 150 # 世代数
 
 #選択された観光地を表示
 #cal(ITEMS) = [[0, 1, 3, 5, 6, 7], [0, 1, 3, 5, 6]]
-def cal(ITEMS):
+def cal(ITEMS, MAX_WEIGHT):
     sim = Simulation(ITEMS, MAX_WEIGHT, N) 
     for _ in range(GENERATION):
         sim.solve()
@@ -385,7 +383,7 @@ def result():
         trial = 0 # 試行回数の記録
         count = 0 # 時間制約違反を抜いた候補数
         appear = [] #表示用
-        while reload < 3:
+        while reload <= 3:
             trial += 1
             # 入力情報の取得
             name1 = request.form.get('name1')
@@ -397,10 +395,15 @@ def result():
             name7 = request.form.get('name7')
             name8 = request.form.get('name8')
             name9 = request.form.get('name9')
+            hh = request.form.get('hh')
+            mm = request.form.get('mm')
 
-            N = 30 #観光地候補数
+            time_span = request.form.get('time_span')
+            MAX_TIME = int(time_span) * 60
+            MAX_WEIGHT = MAX_TIME * 0.8  # 制限時間
+            Num = 30 #観光地候補数
             ITEMS = item(name1, name2, name3, name4, name5, name6, name7, name8, name9) #Spot情報の作成
-            pop = cal(ITEMS) #選択された観光地を表示[[0, 1, 3, 5, 6, 7], [0, 1, 3, 5, 6]]
+            pop = cal(ITEMS, MAX_WEIGHT) #選択された観光地を表示[[0, 1, 3, 5, 6, 7], [0, 1, 3, 5, 6]]
             candidateCount = len(pop) #ルートの候補数(例：2)
             reload += candidateCount #判定用の変数(これが0になったらもう一度)
 
@@ -459,7 +462,9 @@ def result():
                 
                 
                 # 近傍探索適用後の総移動時間(戻ってこない)
-                total_time.append(total_move_time[k] - new_distance_matrix[opt_order[k][0]][opt_order[k][No[k]-1]] + sum(each_required_time) + 60)
+                update_time = total_move_time[k] - new_distance_matrix[opt_order[k][0]][opt_order[k][No[k]-1]] + sum(each_required_time)
+                total_time.append(update_time)
+
 
 
                 spot_name = []
@@ -476,23 +481,36 @@ def result():
                 h = []
                 min = []
 
-                time = 600 # 開始時刻
+                time = int(hh) * 60 + int(mm) # 開始時刻
                 lunch = 0
+                dinner = 0
 
                 for n in range(No[k]-1):
-                    h.append(math.floor(time / 60))
+                    h.append('{0:02}'.format(math.floor(time / 60)))
                     min.append('{0:02}'.format(time % 60))
                     if lunch == 0:
-                        if time >= 720:
+                        if time >= 720 and time < 900:
                             time += 60
                         lunch += 1
+                    if dinner == 0:
+                        if time >= 1050 and time < 1230:
+                            time += 60
+                        dinner += 1
                     time += move_time[k][n] + required_time[k][n]
                     
                     
-                h.append(math.floor(time / 60))
+                h.append('{0:02}'.format(math.floor(time / 60)))
                 min.append('{0:02}'.format(time % 60))
                 hour.append(h)
                 minutes.append(min)
+
+                # 近傍探索適用後の総移動時間(戻ってこない)
+                update_time = total_move_time[k] - new_distance_matrix[opt_order[k][0]][opt_order[k][No[k]-1]] + sum(each_required_time)
+                if lunch == 1:
+                    update_time += 60
+                if dinner == 1:
+                    update_time += 60
+                total_time.append(update_time)
                 
                 appear.append([spot_name, priority, h, min])
                     
@@ -510,13 +528,13 @@ def result():
 
             appear.sort(key = lambda x: x[1], reverse=True)  #優先度でソート
 
-        # 時間制約に違反した候補を消去する
-        while count < reload:
-            if appear[count][1] == 0:
-                appear.pop(count)
-                count -= 1
-                reload -= 1
-            count += 1
+            # 時間制約に違反した候補を消去する
+            while count < reload:
+                if appear[count][1] == 0:
+                    appear.pop(count)
+                    count -= 1
+                    reload -= 1
+                count += 1
         
         # appearの各候補における観光地数(Noをappearの順に変更)
         length_appear = []
@@ -528,7 +546,7 @@ def result():
 
     return render_template('result.html', trial = trial, pop = pop, opt_order = opt_order, solution = solution, total_move_time = total_move_time, total_time = total_time, 
                                          visit_spot = visit_spot, appear = appear, hour = hour, minutes = minutes, candidateCount = candidateCount, No = No, 
-                                         length_appear = length_appear, length_disp = length_disp)
+                                         length_appear = length_appear, length_disp = length_disp, hh = hh, mm = mm, reload = reload)
         
 
 if __name__ == "__main__":
