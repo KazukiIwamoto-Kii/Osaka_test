@@ -385,7 +385,7 @@ def result():
         trial = 0 # 試行回数の記録
         count = 0 # 時間制約違反を抜いた候補数
         appear = [] #表示用
-        while reload <= 3:
+        while reload < 3:
             trial += 1
             # 入力情報の取得
             name1 = request.form.get('name1')
