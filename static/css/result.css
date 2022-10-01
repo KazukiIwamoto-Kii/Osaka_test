@@ -150,15 +150,14 @@ p{
 
 
 .return_button{
-    margin-left: 30%;
-    margin-top: 10px;
-    width: 40%;
+    margin-left: 35%;
+    margin-top: 30px;
+    width: 30%;
     text-align: center;
     line-height: 35px;
     border: solid 1px #333;
     border-radius: 30px;
     background-color: rgb(171, 171, 171);
-    
 }
 
 a{
