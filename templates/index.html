@@ -28,6 +28,7 @@
 
     <main>
         <div>
+            <div class="warn">{{ warn }}</div>
             <form action ='/result' method = "POST" class = "form">
                 <div class = "select_menu">
                     <div class = "select1">
@@ -99,19 +100,49 @@
                     <input type="text" name = "Finish_position" placeholder="終了場所"> -->             
                     <!-- <input type="time" name="Start_time" placeholder="開始時刻">
                     <input type="time" name="Finish_time" placeholder="終了時刻"> -->
+                    <label for="hh">開始時刻</label>
                     <select id="hh" name="hh">
-                        <option value="00">0時</option><option value="01">1時</option><option value="02">2時</option><option value="03">3時</option><option value="04">4時</option><option value="05">5時</option><option value="06">6時</option><option value="07">7時</option><option value="08">8時</option><option value="09">9時</option><option value="10">10時</option><option value="11">11時</option><option value="12">12時</option><option value="13">13時</option><option value="14">14時</option><option value="15">15時</option><option value="16">16時</option><option value="17">17時</option><option value="18">18時</option><option value="19">19時</option><option value="20">20時</option><option selected="" value="21">21時</option><option value="22">22時</option><option value="23">23時</option><option value="24">24時</option><option value="25">25時</option><option value="26">26時</option></select>
+                        <option value="00">0時</option>
+                        <option value="01">1時</option>
+                        <option value="02">2時</option>
+                        <option value="03">3時</option>
+                        <option value="04">4時</option>
+                        <option value="05">5時</option>
+                        <option value="06">6時</option>
+                        <option value="07">7時</option>
+                        <option value="08">8時</option>
+                        <option value="09">9時</option>
+                        <option value="10" selected = "">10時</option>
+                        <option value="11">11時</option>
+                        <option value="12">12時</option>
+                        <option value="13">13時</option>
+                        <option value="14">14時</option>
+                        <option value="15">15時</option>
+                        <option value="16">16時</option>
+                        <option value="17">17時</option>
+                        <option value="18">18時</option>
+                        <option value="19">19時</option>
+                        <option value="20">20時</option>
+                        <option value="21">21時</option>
+                        <option value="22">22時</option>
+                        <option value="23">23時</option>
+                        <option value="24">24時</option>
+                        <option value="25">25時</option>
+                        <option value="26">26時</option>
+                    </select>
                     <select id="mm" name="mm">
-                        <option value="00">0分</option>
+                        <option value="00" selected = "">0分</option>
                         <option value="30">30分</option>
-                        </select>
+                    </select>
+                    <br>
+                    <label for="time_span">観光時間</label>
                     <select name="time_span" id="time_span">
                         <option value="3">3時間</option>
                         <option value="4">4時間</option>
                         <option value="5">5時間</option>
                         <option value="6">6時間</option>
                         <option value="7">7時間</option>
-                        <option value="8">8時間</option>
+                        <option value="8" selected = "">8時間</option>
                         <option value="9">9時間</option>
                         <option value="10">10時間</option>
                         <option value="11">11時間</option>

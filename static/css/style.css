@@ -75,10 +75,22 @@ header {
 
 
 
-
+.warn{
+    position: absolute;
+    top: 80px;
+    left: 30%;
+    width: 40%;
+    text-align: center;
+    line-height: 35px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 30px;
+    color: hsl(0, 0%, 100%);
+    background-color: rgb(171, 171, 171);
+}
 
 .form{
-    padding-top: 100px;
+    padding-top: 125px;
 }
 
 .select_menu{
@@ -195,6 +207,12 @@ input[type="checkbox"]:checked + img{
     opacity: 0.85;
 }
 
+.select_option{
+    position: relative;
+    top: 180px;
+    left: 65%;
+}
+
 .button {
     padding: 15px 25px;
     border: unset;
@@ -203,8 +221,8 @@ input[type="checkbox"]:checked + img{
     z-index: 1;
     background: #e8e8e8;
     position: relative;
-    top: 210px;
-    left: 68%;
+    top: 70px;
+    left: -120px;
     font-weight: 1000;
     font-size: 24px;
     -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);

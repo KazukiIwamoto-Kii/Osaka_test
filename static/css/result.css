@@ -143,6 +143,30 @@ p{
 }
 
 
+.return_button{
+    margin-left: 30%;
+    margin-top: 10px;
+    width: 40%;
+    text-align: center;
+    line-height: 35px;
+    border: solid 1px #333;
+    border-radius: 30px;
+    background-color: rgb(171, 171, 171);
+    
+}
+
+a{
+    text-decoration: none;
+    color: #FFF;
+    font-size: 16px;
+}
+
+
+a:hover{
+    text-decoration: underline;
+    font-size: 16px;
+    font-weight: 600;
+}
 
 .result{
     padding-top: 20px;
