@@ -20,8 +20,8 @@
         </div>
         <nav class="header-menu">
             <ul class = "header-menu-list">
-                <li class="header-menu-item"><a href='/'>計画</a></li>
-                <li class="header-menu-item"><a href='/result'>コース</a></li>
+                <li class="header-menu-item"><a href='/' role = 'button' class = "menu-button">ルート生成</a></li>
+                <!-- <li class="header-menu-item"><a href='/' role = 'button' class = "menu-button">ルート編集</a></li> -->
             </ul>
         </nav>
     </header>
@@ -65,38 +65,8 @@
         </div>
 
         <div class = "test">
-            <div>{{ reload }}</div>
-            <div>{{ hh }}{{ mm }}</div>
             <div>
-                <strong>試行回数(後で消す)</strong>
-                {{ trial }}
-            </div>
-            <div>
-                <strong>観光地の選択</strong>
-                {{ pop }}
-            </div>
-            <div>
-                <strong>訪問順序</strong>
-                {{ opt_order }}
-            </div>
-            <div>
-                <strong>訪問順序</strong>
-                {{ solution }}
-            </div>
-            <div>
-                <strong>総移動時間</strong>
-                {{ total_move_time }}
-            </div>
-            <div>
-                <strong>総時間</strong>
-                {{ total_time }}
-            </div>
-            <div>
-                <strong>観光ルート</strong>
-                {{ visit_spot }}
-            </div>
-            <div>
-                <strong>優先度順にソート(後で消す)</strong>
+                <strong>ルート候補(ソート済み)</strong>
                 {{ appear }}
             </div>
 

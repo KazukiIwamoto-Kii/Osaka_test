@@ -252,7 +252,7 @@ distance_matrix = np.array([
 
 
 N = 100        # 個体数
-GENERATION = 150 # 世代数
+GENERATION = 100 # 世代数
 
 #選択された観光地を表示
 #cal(ITEMS) = [[0, 1, 3, 5, 6, 7], [0, 1, 3, 5, 6]]
@@ -413,7 +413,7 @@ def result():
                 trial += 1
                 # 入力情報の取得
                 MAX_TIME = int(time_span) * 60
-                MAX_WEIGHT = MAX_TIME * 0.8  # 制限時間
+                MAX_WEIGHT = MAX_TIME * 0.7  # 制限時間
                 Num = 30 #観光地候補数
                 ITEMS = item(name1, name2, name3, name4, name5, name6, name7, name8, name9) #Spot情報の作成
                 pop = cal(ITEMS, MAX_WEIGHT) #選択された観光地を表示[[0, 1, 3, 5, 6, 7], [0, 1, 3, 5, 6]]
@@ -435,7 +435,7 @@ def result():
 
                 hour = []
                 minutes = []
-                
+
                 for k in range(candidateCount):
                     x = []
                     new_distance_matrix = []
@@ -472,13 +472,6 @@ def result():
                     for n in range(No[k]-1):
                         each_move_time.append(new_distance_matrix[opt_order[k][n]][opt_order[k][n+1]])
                     move_time.append(each_move_time)
-                    
-                    
-                    # 近傍探索適用後の総移動時間(戻ってこない)
-                    update_time = total_move_time[k] - new_distance_matrix[opt_order[k][0]][opt_order[k][No[k]-1]] + sum(each_required_time)
-                    total_time.append(update_time)
-
-
 
                     spot_name = []
                     for l in range(len(pop[k])):
@@ -518,6 +511,7 @@ def result():
                     minutes.append(min)
 
                     # 近傍探索適用後の総移動時間(戻ってこない)
+                    update_time = 0
                     update_time = total_move_time[k] - new_distance_matrix[opt_order[k][0]][opt_order[k][No[k]-1]] + sum(each_required_time)
                     if lunch == 1:
                         update_time += 60
@@ -525,29 +519,29 @@ def result():
                         update_time += 60
                     total_time.append(update_time)
                     
-                    appear.append([spot_name, priority, h, min])
+                    appear.append([spot_name, priority, h, min, update_time])
                         
             
-                    if total_time[k] >= MAX_TIME: #制限時間超えたら0にする
-                        pop[k] = 0 
-                        opt_order[k] = 0
-                        total_move_time[k] = 0
-                        total_time[k] = 0
-                        solution[k] = 0
-                        visit_spot[k] = 0
-                        hour[k] = 0
-                        minutes[k] = 0
-                        appear[k][1] = 0
+                    # if total_time[k] >= MAX_TIME: #制限時間超えたら0にする
+                    #     pop[k] = 0
+                    #     opt_order[k] = 0
+                    #     total_move_time[k] = 0
+                    #     total_time[k] = 0
+                    #     solution[k] = 0
+                    #     visit_spot[k] = 0
+                    #     hour[k] = 0
+                    #     minutes[k] = 0
 
-                appear.sort(key = lambda x: x[1], reverse=True)  #優先度でソート
 
                 # 時間制約に違反した候補を消去する
                 while count < reload:
-                    if appear[count][1] == 0:
+                    if appear[count][4] >= (MAX_TIME + 30) or appear[count][4] <= (MAX_TIME - 60):
                         appear.pop(count)
                         count -= 1
                         reload -= 1
                     count += 1
+                
+                appear.sort(key = lambda x: x[1], reverse=True)  #優先度でソート
             
             # appearの各候補における観光地数(Noをappearの順に変更)
             length_appear = []
@@ -557,9 +551,9 @@ def result():
             # 表示する候補の制限(最大３ルートまで表示)
             length_disp = np.min([3, len(appear)])
 
-        return render_template('result.html', trial = trial, pop = pop, opt_order = opt_order, solution = solution, total_move_time = total_move_time, total_time = total_time, 
-                                            visit_spot = visit_spot, appear = appear, hour = hour, minutes = minutes, candidateCount = candidateCount, No = No, 
-                                            length_appear = length_appear, length_disp = length_disp, hh = hh, mm = mm, reload = reload)
+        return render_template('result.html', solution = solution, total_time = total_time, 
+                                            visit_spot = visit_spot, appear = appear, candidateCount = candidateCount, No = No, 
+                                            length_appear = length_appear, length_disp = length_disp)
             
 
 if __name__ == "__main__":

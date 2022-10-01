@@ -47,7 +47,7 @@ header {
     margin-bottom: 16px;
     position: relative;
     display: flex;
-    width: 500px;
+    width: 300px;
 }
 
 .header-menu-item{
@@ -72,6 +72,12 @@ header {
     line-height: 1;
     text-align: center;
     text-decoration: none;
+    color: currentColor;
+}
+
+.header-menu-item a:hover{
+    font-size: 17px;
+    transition: 0.05s linear;
 }
 
 /* タブ */
