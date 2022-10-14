@@ -79,6 +79,9 @@ header {
     transition: 0.05s linear;
 }
 
+
+
+
 .warn{
     position: absolute;
     top: 80px;
@@ -271,4 +274,48 @@ input[type="checkbox"]:checked + img{
 
 .button:hover::before {
     width: 100%;
+}
+
+#loading-message {
+    position: absolute; /* 親要素からの相対位置になるようにする */
+    z-index: 3; /* z軸を上げる */
+    font-size: 26px;
+    font-weight: 700;
+    top: 200px;  /* marginまでセットでいい感じに親要素の真ん中になる */
+    bottom: 0;
+    width: 20%;
+    left: 40%;
+    right: 40%;
+    margin: auto;
+    text-align: center;
+}
+
+/* ローディングアイコン */
+#loading {
+    position: absolute; /* 親要素からの相対位置になるようにする */
+    z-index: 2; /* z軸を上げる */
+    top: 80px;  /* marginまでセットでいい感じに親要素の真ん中になる */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 200px; /* ローディングアイコンのサイズになる */
+    height: 200px;
+    border-radius: 50%; /* 50% 丸めるとまるくなる */
+    border: 8px solid #2d2d2d;  /* 先の太さや色になる */
+    border-right-color: transparent;  /* 右側を透過することで1/4だけ空いた円になる */
+    animation: spin 1s linear infinite;  /* 1秒ごとのアニメーションの指定 */
+}
+
+/* アニメーションの設定 */
+@keyframes spin {
+0% {
+    transform: rotate(0deg); /* 0度回す */
+}
+50% {
+    transform: rotate(180deg);  /* 180度回す */
+}
+100% {
+    transform: rotate(360deg);  /* 360度回す */
+}
 }

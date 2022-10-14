@@ -491,17 +491,19 @@ def result():
                     lunch = 0
                     dinner = 0
 
+                    # 各地点の到着時刻をリスト形式で保存
+                    # 昼食・夕食時に１時間追加
                     for n in range(No[k]-1):
                         h.append('{0:02}'.format(math.floor(time / 60)))
                         min.append('{0:02}'.format(time % 60))
                         if lunch == 0:
                             if time >= 720 and time < 900:
                                 time += 60
-                            lunch += 1
+                                lunch += 1
                         if dinner == 0:
                             if time >= 1050 and time < 1230:
                                 time += 60
-                            dinner += 1
+                                dinner += 1
                         time += move_time[k][n] + required_time[k][n]
                         
                         
@@ -510,7 +512,7 @@ def result():
                     hour.append(h)
                     minutes.append(min)
 
-                    # 近傍探索適用後の総移動時間(戻ってこない)
+                    # 近傍探索適用後の総時間(戻ってこない)
                     update_time = 0
                     update_time = total_move_time[k] - new_distance_matrix[opt_order[k][0]][opt_order[k][No[k]-1]] + sum(each_required_time)
                     if lunch == 1:

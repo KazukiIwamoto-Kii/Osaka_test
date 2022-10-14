@@ -26,6 +26,9 @@
         </nav>
     </header>
 
+    <div id = 'loading-message' style='display:none;'>ルート生成中......</div>
+    <div id='loading' style='display:none;'></div>
+
     <main>
         <div>
             <div class="warn">{{ warn }}</div>
@@ -154,13 +157,16 @@
                         <option value="17">17時間</option>
                         <option value="18">18時間</option>
                     </select>
-                    <input class = "button" type="submit" value="自動生成">
+                    <input class = "button" id = "loading-button" type="submit" value="自動生成">
                 </div>
             </form>
         </div>
 
 
     </main>
+
+
+
     <script src = "static/js/index.js"></script>
 </body>
 </html>
