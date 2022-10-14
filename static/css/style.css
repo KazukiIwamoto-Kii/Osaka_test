@@ -36,7 +36,7 @@ header {
     margin-top: 8px;
 }
 
-.header-menu{
+/* .header-menu{
     height: 100%;
 }
 
@@ -77,7 +77,7 @@ header {
 .header-menu-item a:hover{
     font-size: 17px;
     transition: 0.05s linear;
-}
+} */
 
 .warn{
     position: absolute;
