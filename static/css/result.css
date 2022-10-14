@@ -83,8 +83,8 @@ header {
 /* タブ */
 .tab-panel{
     padding-top: 90px;
-    width: 70%;
-    margin: 0 15%;
+    width: 50%;
+    margin: 0 25%;
     justify-content: center;
 }
 

@@ -367,10 +367,18 @@ def item(name1, name2, name3, name4, name5, name6, name7, name8, name9):
 
 spot_list = { 0 : "海遊館", 1 : "万博公園", 2 : "USJ", 3 : "なんば", 4 : "梅田",
                 5 : "天王寺", 6 : "長居公園", 7 : "大阪城", 8 : "新世界", 9 : "天王寺動物園",
-                10 : "スパワールド", 11 : "梅田スカイビル", 12 : "なんばグランド花月", 13 : "なんばパークス", 14 : "アメリカ村",
+                10 : "スパワールド", 11 : "梅田スカイビル", 12 : "なんばグランド花月", 13 : "心斎橋", 14 : "アメリカ村",
                 15 : "大阪天満宮", 16 : "四天王寺", 17 : "住吉大社", 18 : "国立国際美術館", 19 : "大阪市立美術館",
-                20 : "関西国際空港", 21 : "りんくうアウトレット", 22 : "泉南りんくう公園", 23 : "中之島", 24 : "造幣美術館",
+                20 : "関西国際空港", 21 : "りんくうプレミアム・アウトレット", 22 : "泉南りんくう公園", 23 : "中之島公園", 24 : "造幣博物館",
                 25 : "空庭温泉", 26 : "生野コリアンタウン", 27 : "エキスポシティ", 28 : "ひらかたパーク", 29 : "ハーベストの丘"}
+
+
+spot_order = { "万博公園" : 0, "エキスポシティ" : 1, "ひらかたパーク" : 2, "梅田" : 3, "梅田スカイビル" : 4, "USJ" :5, "空庭温泉" : 6, 
+"国立国際美術館" : 7 , "中之島公園": 8, "大阪天満宮" : 9,"造幣博物館" : 10, "大阪城" : 11, "生野コリアンタウン" : 12, "海遊館" : 13, 
+"心斎橋" : 14, "アメリカ村" : 15, "なんばグランド花月" : 16, "なんば" : 17, 
+"スパワールド" : 18, "新世界" : 19, "大阪市立美術館" : 20, "天王寺動物園" : 21, "四天王寺" : 22, "天王寺" : 23,
+"長居公園" : 24, "住吉大社" : 25, "ハーベストの丘" : 26, "関西国際空港" : 27, "りんくうプレミアム・アウトレット" : 28, "泉南りんくう公園" : 29
+}
 
 
 @app.route('/', methods = ['GET', 'POST'])#メイン画面
@@ -451,6 +459,31 @@ def result():
                     #2-opt法の適応
                     #最適訪問順序
                     opt_order.append(local_search(first_order, new_distance_matrix, improve_with_2opt))
+
+                    # name_order = []
+                    # number_order = []
+                    # calc_order = local_search(first_order, new_distance_matrix, improve_with_2opt)
+                    # for i in calc_order:
+                    #     name_order.append(spot_list[i])
+                    # for j in name_order:
+                    #     number_order.append(spot_order[j])
+                    # if sum(number_order) / len(number_order) < 15:
+                    #     number_order = sorted(number_order)
+                    # else:
+                    #     number_order = sorted(number_order, reverse=True)
+                    # name_order = []
+                    # for i in number_order:
+                    #     for key, value in spot_order.items():
+                    #         if i == value:
+                    #             name_order.append(key)
+                    # calc_order = []
+                    # for i in name_order:
+                    #     for key, value in spot_list.items():
+                    #         if i == value:
+                    #             calc_order.append(key)
+                    # opt_order.append(calc_order)
+
+
 
                     #最適総移動時間
                     total_move_time.append(calculate_total_distance(opt_order[k], new_distance_matrix))

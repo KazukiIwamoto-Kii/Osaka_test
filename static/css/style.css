@@ -79,9 +79,6 @@ header {
     transition: 0.05s linear;
 }
 
-
-
-
 .warn{
     position: absolute;
     top: 80px;
@@ -101,8 +98,8 @@ header {
 }
 
 .select_menu{
-    width: 70%;
-    left: 15%;
+    width: 60%;
+    left: 20%;
     height: 480px;
     background-color: #fcfcfc;
     border: 1px solid #212121;
@@ -281,7 +278,7 @@ input[type="checkbox"]:checked + img{
     z-index: 3; /* z軸を上げる */
     font-size: 26px;
     font-weight: 700;
-    top: 200px;  /* marginまでセットでいい感じに親要素の真ん中になる */
+    top: 210px;  /* marginまでセットでいい感じに親要素の真ん中になる */
     bottom: 0;
     width: 20%;
     left: 40%;
@@ -314,6 +311,7 @@ input[type="checkbox"]:checked + img{
 }
 50% {
     transform: rotate(180deg);  /* 180度回す */
+
 }
 100% {
     transform: rotate(360deg);  /* 360度回す */
