@@ -10,32 +10,7 @@ body {
     padding: 0px;
 }
 
-/* ヘッダー */
-header {
-    background-color: #fcfcfc;
-    width: 100%;
-    height: 64px;
-    position: fixed;
-    left: 0;
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 2px 6px 1px rgb(0 0 0 / 20);
-    z-index: 1;
-}
 
-.header-left{
-    display: flex;
-    text-align: center;
-    width: 275px;
-    height: 100%;
-}
-
-#servicename{
-    margin-bottom: 0px;
-    margin-top: 8px;
-}
 
 /* .header-menu{
     height: 100%;
@@ -80,103 +55,273 @@ header {
     transition: 0.05s linear;
 } */
 
-/* タブ */
-.tab-panel{
-    padding-top: 90px;
-    width: 50%;
-    margin: 0 25%;
-    justify-content: center;
+/* 960px以上の場合のcss */
+@media screen and (min-width: 960px){
+
+    /* ヘッダー */
+    header {
+        background-color: #fcfcfc;
+        width: 100%;
+        height: 64px;
+        position: fixed;
+        left: 0;
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 2px 6px 1px rgb(0 0 0 / 20);
+        z-index: 1;
+    }
+
+    .header-left{
+        display: flex;
+        text-align: center;
+        width: 275px;
+        height: 100%;
+    }
+
+    #servicename{
+        margin-bottom: 0px;
+        margin-top: 8px;
+    }
+
+    /* タブ */
+    .tab-panel{
+        padding-top: 90px;
+        width: 50%;
+        margin: 0 25%;
+        justify-content: center;
+    }
+    
+    .tab-group{
+        display: flex;
+        justify-content: center;
+        padding: 0px 15%;
+    }
+    
+    .tab{
+        flex-grow: 1;
+        padding: 5px;
+        list-style:none;
+        border:solid 1px #CCC;
+        border-radius: 3px;
+        text-align:center;
+        cursor:pointer;
+        font-weight: 600;
+    }
+    
+    .panel-group{
+        height:auto;
+        border:solid 1px #CCC;
+        border-top:none;
+        background:rgb(244, 244, 244);
+        border-radius: 5px;
+        border: solid 1px #333;
+    }
+    
+    .panel{
+        display:none;
+        padding: 20px;
+    }
+    
+    p{
+        font-size: 15px;
+        font-weight: bolder;
+        padding: 0px 20px;
+        margin: 0px;
+    }
+    
+    .tab.is-active{
+        background:rgb(44, 44, 44);
+        color:#FFF;
+        transition: all 0.5s ease-out;
+    }
+    
+    .panel.is-show{
+        display:block;
+    }
+    
+    .data_spot{
+        padding: 0px;
+        font-weight: 400;
+        vertical-align: baseline;
+    }
+    
+    .spot{
+        padding-left: 20px;
+        font-size: 22px;
+        font-weight: 600;
+    }
+    
+    
+    .return_button{
+        margin-left: 35%;
+        margin-top: 20px;
+        width: 30%;
+        text-align: center;
+        line-height: 35px;
+        border: solid 1px #333;
+        border-radius: 30px;
+        background-color: rgb(171, 171, 171);
+    }
+    
+    a{
+        text-decoration: none;
+        color: #FFF;
+        font-size: 16px;
+    }
+    
+    
+    a:hover{
+        text-decoration: underline;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    
+    .result{
+        padding-top: 20px;
+    }
+    
+    .test{
+        padding-top: 20px;
+    }
 }
 
-.tab-group{
-    display: flex;
-    justify-content: center;
-    padding: 0px 15%;
-}
-
-.tab{
-    flex-grow: 1;
-    padding: 5px;
-    list-style:none;
-    border:solid 1px #CCC;
-    border-radius: 3px;
-    text-align:center;
-    cursor:pointer;
-    font-weight: 600;
-}
-
-.panel-group{
-    height:auto;
-    border:solid 1px #CCC;
-    border-top:none;
-    background:rgb(244, 244, 244);
-    border-radius: 5px;
-    border: solid 1px #333;
-}
-
-.panel{
-    display:none;
-    padding: 20px;
-}
-
-p{
-    font-size: 15px;
-    font-weight: bolder;
-    padding: 0px 20px;
-    margin: 0px;
-}
-
-.tab.is-active{
-    background:rgb(44, 44, 44);
-    color:#FFF;
-    transition: all 0.5s ease-out;
-}
-
-.panel.is-show{
-    display:block;
-}
-
-.data_spot{
-    padding: 0px;
-    font-weight: 400;
-    vertical-align: baseline;
-}
-
-.spot{
-    padding-left: 20px;
-    font-size: 22px;
-    font-weight: 600;
-}
 
 
-.return_button{
-    margin-left: 35%;
-    margin-top: 30px;
-    width: 30%;
-    text-align: center;
-    line-height: 35px;
-    border: solid 1px #333;
-    border-radius: 30px;
-    background-color: rgb(171, 171, 171);
-}
-
-a{
-    text-decoration: none;
-    color: #FFF;
-    font-size: 16px;
-}
 
 
-a:hover{
-    text-decoration: underline;
-    font-size: 16px;
-    font-weight: 600;
-}
 
-.result{
-    padding-top: 20px;
-}
+/* 960px以下の場合のcss */
+@media screen and (max-width: 960px){
 
-.test{
-    padding-top: 20px;
+    /* ヘッダー */
+    header {
+        background-color: #fcfcfc;
+        width: 100%;
+        height: 35px;
+        position: fixed;
+        top: 0; 
+        left: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.221);
+    }
+
+    .header-left{
+        display: flex;
+        text-align: center;
+        line-height: 25px;
+        justify-content: center;
+        margin: 5px;
+        height: 100%;
+    }
+    #servicename{
+        margin-bottom: 0;
+        margin-top: 3px;
+        font-size: 20px;
+    }
+
+    /* タブ */
+    .tab-panel{
+        padding-top: 45px;
+        width: 90%;
+        margin: 0 5%;
+        justify-content: center;
+    }
+    
+    .tab-group{
+        display: flex;
+        justify-content: center;
+        padding: 0px 5%;
+    }
+    
+    .tab{
+        flex-grow: 1;
+        padding: 5px;
+        list-style:none;
+        border:solid 1px #CCC;
+        border-radius: 3px;
+        text-align:center;
+        cursor:pointer;
+        font-weight: 600;
+    }
+    
+    .panel-group{
+        height:auto;
+        border:solid 1px #CCC;
+        border-top:none;
+        background:rgb(244, 244, 244);
+        border-radius: 5px;
+        border: solid 1px #333;
+    }
+    
+    .panel{
+        display:none;
+        padding: 20px;
+    }
+    
+    p{
+        font-size: 12px;
+        font-weight: bolder;
+        padding: 0px 20px;
+        margin: 0px;
+    }
+    
+    .tab.is-active{
+        background:rgb(44, 44, 44);
+        color:#FFF;
+        transition: all 0.5s ease-out;
+    }
+    
+    .panel.is-show{
+        display:block;
+    }
+    
+    .data_spot{
+        padding: 0px;
+        font-weight: 400;
+        vertical-align: baseline;
+    }
+    
+    .spot{
+        padding-left: 20px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    
+    
+    .return_button{
+        margin-left: 25%;
+        margin-top: 15px;
+        width: 50%;
+        text-align: center;
+        line-height: 35px;
+        border: solid 1px #333;
+        border-radius: 30px;
+        background-color: rgb(171, 171, 171);
+    }
+    
+    a{
+        text-decoration: none;
+        color: #FFF;
+        font-size: 16px;
+    }
+    
+    
+    a:hover{
+        text-decoration: underline;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    
+    .result{
+        padding-top: 20px;
+    }
+    
+    .test{
+        padding-top: 20px;
+    }
 }

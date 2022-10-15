@@ -30,80 +30,84 @@
     <div id='loading' style='display:none;'></div>
 
     <main>
-        <div>
-            <div class="warn">{{ warn }}</div>
+        <div class = "form_block">
+            
             <form action ='/result' method = "POST" class = "form">
                 <div class = "select_menu">
-                    <div class = "select1">
-                        <div class = "check">
-                            <input type="checkbox" name = "name1" id = "OsakaAquarium" value = "1">
-                            <img class = "pic" src="./static/images/OsakaAquarium.jpg" alt="海遊館">
-                            <label for = "name1" class = "label">海遊館</label>
+                    <div id="select_line_1">
+                        <div class = "select1">
+                            <div class = "check">
+                                <input type="checkbox" name = "name1" id = "OsakaAquarium" value = "1">
+                                <img class = "pic" src="./static/images/OsakaAquarium.jpg" alt="海遊館">
+                                <label for = "name1" class = "label">海遊館</label>
+                            </div>
+                        </div>
+                        <div class = "select2">
+                            <div class = "check">
+                                <input type="checkbox" name = "name2" class = "name" value = "2">
+                                <img class = "pic" src="./static/images/BanpakuPark.jpg" alt="万博公園">
+                                <label for="name2" class = "label">万博公園</label>
+                            </div>
+                        </div>
+                        <div class = "select3">
+                            <div class = "check">
+                                <input type="checkbox" name = "name3" class = "name" value = "3">
+                                <img class = "pic" src="./static/images/USJ.jpg" alt="USJ">
+                                <label for="name3" class = "label">USJ</label>
+                            </div>
                         </div>
                     </div>
-                    <div class = "select2">
-                        <div class = "check">
-                            <input type="checkbox" name = "name2" class = "name" value = "2">
-                            <img class = "pic" src="./static/images/BanpakuPark.jpg" alt="万博公園">
-                            <label for="name2" class = "label">万博公園</label>
+                    <div id="select_line_2">
+                        <div class = "select4">
+                            <div class = "check">
+                                <input type="checkbox" name = "name4" class = "name" value = "4">
+                                <img class = "pic" src="./static/images/Namba.jpg" alt="なんば">
+                                <label for="name4" class = "label">なんば</label>
+                            </div>
+                        </div>
+                        <div class = "select5">
+                            <div class="check">
+                                <input type="checkbox" name = "name5" class = "name" value = "5">
+                                <img class = "pic" src="./static/images/Umeda.jpg" alt="梅田">
+                                <label for="name5" class = "label">梅田</label>
+                            </div>
+                        </div>
+                        <div class = "select6">
+                            <div class="check">
+                                <input type="checkbox" name = "name6" class = "name" value = "6">
+                                <img class = "pic" src="./static/images/Tennoji.jpg" alt="天王寺">
+                                <label for="name6" class = "label">天王寺</label>
+                            </div>
                         </div>
                     </div>
-                    <div class = "select3">
-                        <div class = "check">
-                            <input type="checkbox" name = "name3" class = "name" value = "3">
-                            <img class = "pic" src="./static/images/USJ.jpg" alt="USJ">
-                            <label for="name3" class = "label">USJ</label>
+                    <div id="select_line_3">
+                        <div class = "select7">
+                            <div class="check">
+                                <input type="checkbox" name = "name7" class = "name" value = "7">
+                                <img class = "pic" src="./static/images/NagaiPark.jpg" alt="長居公園">
+                                <label for="name7" class = "label">長居公園</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class = "select4">
-                        <div class = "check">
-                            <input type="checkbox" name = "name4" class = "name" value = "4">
-                            <img class = "pic" src="./static/images/Namba.jpg" alt="なんば">
-                            <label for="name4" class = "label">なんば</label>
+                        <div class = "select8">
+                            <div class="check">
+                                <input type="checkbox" name = "name8" class = "name" value = "8">
+                                <img class = "pic" src="./static/images/OsakaCastle.jpg" alt="大阪城">
+                                <label for="name8" class = "label">大阪城</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class = "select5">
-                        <div class="check">
-                            <input type="checkbox" name = "name5" class = "name" value = "5">
-                            <img class = "pic" src="./static/images/Umeda.jpg" alt="梅田">
-                            <label for="name5" class = "label">梅田</label>
-                        </div>
-                    </div>
-                    <div class = "select6">
-                        <div class="check">
-                            <input type="checkbox" name = "name6" class = "name" value = "6">
-                            <img class = "pic" src="./static/images/Tennoji.jpg" alt="天王寺">
-                            <label for="name6" class = "label">天王寺</label>
-                        </div>
-                    </div>
-                    <div class = "select7">
-                        <div class="check">
-                            <input type="checkbox" name = "name7" class = "name" value = "7">
-                            <img class = "pic" src="./static/images/NagaiPark.jpg" alt="長居公園">
-                            <label for="name7" class = "label">長居公園</label>
-                        </div>
-                    </div>
-                    <div class = "select8">
-                        <div class="check">
-                            <input type="checkbox" name = "name8" class = "name" value = "8">
-                            <img class = "pic" src="./static/images/OsakaCastle.jpg" alt="大阪城">
-                            <label for="name8" class = "label">大阪城</label>
-                        </div>
-                    </div>
-                    <div class = "select9">
-                        <div class="check">
-                            <input type="checkbox" name = "name9" class = "name" value = "9">
-                            <img class = "pic" src="./static/images/Tsutenkaku.jpg" alt="新世界">
-                            <label for="name9" class = "label">新世界</label>
+                        <div class = "select9">
+                            <div class="check">
+                                <input type="checkbox" name = "name9" class = "name" value = "9">
+                                <img class = "pic" src="./static/images/Tsutenkaku.jpg" alt="新世界">
+                                <label for="name9" class = "label">新世界</label>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="warn">{{ warn }}</div>
                 <div class="select_option">
-                    <!-- <input type="text" name = "Start_position" placeholder="開始場所">
-                    <input type="text" name = "Finish_position" placeholder="終了場所"> -->             
-                    <!-- <input type="time" name="Start_time" placeholder="開始時刻">
-                    <input type="time" name="Finish_time" placeholder="終了時刻"> -->
-                    <label for="hh">開始時刻</label>
+                    <label for="hh" class = "start_time">開始時刻</label>
+                    <br>
                     <select id="hh" name="hh">
                         <option value="00">0時</option>
                         <option value="01">1時</option>
@@ -138,7 +142,7 @@
                         <option value="30">30分</option>
                     </select>
                     <br>
-                    <label for="time_span">観光時間</label>
+                    <label for="time_span" class = "time_visit">観光時間</label>
                     <select name="time_span" id="time_span">
                         <option value="3">3時間</option>
                         <option value="4">4時間</option>
@@ -157,8 +161,8 @@
                         <option value="17">17時間</option>
                         <option value="18">18時間</option>
                     </select>
-                    <input class = "button" id = "loading-button" type="submit" value="自動生成">
                 </div>
+                <input class = "button" id = "loading-button" type="submit" value="自動生成">
             </form>
         </div>
 
