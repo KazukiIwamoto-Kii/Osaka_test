@@ -460,39 +460,45 @@ def result():
                     #最適訪問順序
                     opt_order.append(local_search(first_order, new_distance_matrix, improve_with_2opt))
 
-                    # name_order = []
-                    # number_order = []
-                    # calc_order = local_search(first_order, new_distance_matrix, improve_with_2opt)
-                    # for i in calc_order:
-                    #     name_order.append(spot_list[i])
-                    # for j in name_order:
-                    #     number_order.append(spot_order[j])
-                    # if sum(number_order) / len(number_order) < 15:
-                    #     number_order = sorted(number_order)
-                    # else:
-                    #     number_order = sorted(number_order, reverse=True)
-                    # name_order = []
-                    # for i in number_order:
-                    #     for key, value in spot_order.items():
-                    #         if i == value:
-                    #             name_order.append(key)
-                    # calc_order = []
-                    # for i in name_order:
-                    #     for key, value in spot_list.items():
-                    #         if i == value:
-                    #             calc_order.append(key)
-                    # opt_order.append(calc_order)
+                    best_order = []
+                    #正式な訪問順序
+                    for m in opt_order[k]:
+                        best_order.append(pop[k][m])
+                        name_order = []
+                        number_order = []
+                        # 名前順に表示
+                        for i in best_order:
+                            name_order.append(spot_list[i])
+                        for j in name_order:
+                            number_order.append(spot_order[j])
+                        
+                        if sum(number_order) / len(number_order) < 15:
+                            number_order = sorted(number_order)
+                        else:
+                            number_order = sorted(number_order, reverse=True)
+                        
+                        name_order = []
+                        for i in number_order:
+                            for key, value in spot_order.items():
+                                if i == value:
+                                    name_order.append(key)
+                        calc_order = []
+                        for i in name_order:
+                            for key, value in spot_list.items():
+                                if i == value:
+                                    calc_order.append(key)
+                        best_order = calc_order
+                    solution.append(best_order)
 
+                    for i, j in enumerate(best_order):
+                        for m in range(len(pop[k])):
+                            if j == pop[k][m]:
+                                opt_order[k][i] = m
 
 
                     #最適総移動時間
                     total_move_time.append(calculate_total_distance(opt_order[k], new_distance_matrix))
 
-                    best_order = []
-                    #正式な訪問順序
-                    for m in opt_order[k]:
-                        best_order.append(pop[k][m])
-                    solution.append(best_order)
 
                     each_required_time = []
                     #各観光地での所要時間
@@ -588,7 +594,7 @@ def result():
 
         return render_template('result.html', solution = solution, total_time = total_time, 
                                             visit_spot = visit_spot, appear = appear, candidateCount = candidateCount, No = No, 
-                                            length_appear = length_appear, length_disp = length_disp)
+                                            length_appear = length_appear, length_disp = length_disp, opt_order = opt_order)
             
 
 if __name__ == "__main__":
