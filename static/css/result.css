@@ -88,8 +88,8 @@ body {
     /* タブ */
     .tab-panel{
         padding-top: 90px;
-        width: 50%;
-        margin: 0 25%;
+        width: 60%;
+        margin: 0 20%;
         justify-content: center;
     }
     
@@ -176,14 +176,6 @@ body {
         text-decoration: underline;
         font-size: 16px;
         font-weight: 600;
-    }
-    
-    .result{
-        padding-top: 20px;
-    }
-    
-    .test{
-        padding-top: 20px;
     }
 }
 

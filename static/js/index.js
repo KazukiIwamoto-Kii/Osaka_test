@@ -8,7 +8,7 @@ buttonNode.addEventListener('click', function(e){
         .then(function(res){
             // 結果を得たらローディングを消す
             // ローディングが見えるように今回は60秒ずらしている
-            setTimeout(hideLoading, 60000);
+            setTimeout(hideLoading, 100000);
         });
 }, false);
 
