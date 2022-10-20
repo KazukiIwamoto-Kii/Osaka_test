@@ -7,35 +7,38 @@ import copy
 import numpy as np
 from statistics import mean
 import math
+import csv
+import pprint
 
 app = Flask(__name__)
-
-
 
 #観光地選択部分
 class Agent:
     # 初期化
-    def __init__(self, M):
+    def __init__(self, N):
         # 遺伝子の初期化
-        """8/29追加"""
         #self.gene = [random.randint(0,1) for i in range(M)]
         # 0,1の目が出るサイコロ(dice)を用意
-        dice = list(range(0,2))
+        dice = list(range(0,2)) #[0, 1]
         # 0が出やすいように重みを設定する(1が多いと全部時間オーバーになって適応度0でゼロ除算発生)
         w = [5, 1]
-        # 歪んだサイコロを30回振ってサンプルを得る
-        samples = random.choices(dice, k = M, weights = w)
-        """ここまで追加"""
+        # 歪んだサイコロをN(=30)回振ってサンプルを得る
+        samples = random.choices(dice, k = N, weights = w)
+        # gene：１個体の生成
         self.gene = samples
         self.weight = 0   # 時間
         self.fitness = 0  # 適応度（価値の合計）
     
     # 適応度計算
     def calc_fitness(self, items, MAX_WEIGHT):
+        # item[0]：各地点の所要時間
+        # weight：所要時間の合計
         self.weight = sum([n*item[0] for n, item in zip(self.gene, items)])
+        # item[1]：各地点の優先度値
+        # fitness：優先度値の合計
         self.fitness = sum([n*item[1] for n, item in zip(self.gene, items)])
         if self.weight > MAX_WEIGHT: # 制限時間を超えたら適応度0
-            self.fitness = 0        
+            self.fitness = 0
 
 
 class Simulation:
@@ -46,28 +49,47 @@ class Simulation:
         self.N = N                   # 個体数
         self.mutation_rate = 0.1     # 突然変異率
         
-        # 個体群の生成
-        self.population = [Agent(len(self.items)) for i in range(self.N)]
+        # 個体群の生成(100個体)
+        self.population = [Agent(len(self.items)) for _ in range(self.N)]
         # 次世代の個体群
         self.offspring = []
         
     # ルーレット選択
     def roulette_selection(self):
+        # rouletteに各個体の評価値を記録
         roulette = []
         for i in self.population:
             roulette.append(i.fitness)
-           
+        
+        # 各個体を選択する確率を算出
         probs = np.array(roulette)/sum(roulette)
         
         parent = []
-        for i in range(2):
+        # 個体群の中から２個体を選出
+        # ここで選択される個体は歪なサイコロにより決定される
+        for _ in range(2):
             selected = np.random.choice(self.population, p=probs)
             parent.append(copy.deepcopy(selected))
     
         return parent
     
+    # トーナメント選択
+    def tournament_selection(self):
+        parent = []
+        for _ in range(2):
+          fit = []
+          tournament_random = np.random.choice(self.population, 3, replace = False)
+          for i in tournament_random:
+            fit.append(i.fitness)
+          for j in range(3):
+            for n, k in enumerate(tournament_random):
+              if fit[j] == max(fit):
+                if j == n:
+                  parent.append(copy.deepcopy(k))
+        return parent
+    
     # 一点交叉
-    def crossover(self, parent1, parent2):
+    def crossoverOnePoint(self, parent1, parent2):
         r = random.randint(0, len(parent1.gene)-1)
         offspring1 = copy.deepcopy(parent1)
         offspring2 = copy.deepcopy(parent2)
@@ -78,67 +100,88 @@ class Simulation:
         self.offspring.append(offspring1)
         self.offspring.append(offspring2)
     
+    # 一様交叉
+    def crossoverUniform(self, parent1, parent2):
+        offspring1 = copy.deepcopy(parent1)
+        offspring2 = copy.deepcopy(parent2)
+        size = min(len(parent1.gene), len(parent2.gene))
+        for i in range(size):
+            if random.random() < 0.5:
+                offspring1.gene[i], offspring2.gene[i] = offspring2.gene[i], offspring1.gene[i]
+
+        # 次世代プールに追加
+        self.offspring.append(offspring1)
+        self.offspring.append(offspring2)
+    
     # 突然変異
     def mutate(self, agent):
         r = random.choice(range(len(agent.gene)))
         agent.gene[r] = 1 if agent.gene[r] == 0 else 0
         
-    # 世代交代    
+    # 世代交代(現世代の削除・)
     def generation_change(self):
         self.population.clear()
         self.population = copy.deepcopy(self.offspring)
         self.offspring.clear()
 
-    # ナップサック問題を解く（=GAで個体群を進化させる）
+    # 各世代における個体群に対してGAを解く
     def solve(self):
-        # 平均適応度，最大適応度をリストに追加
-        # mean_list.append(self.mean_fitness())
-        # max_list.append(self.max_fitness())
-        
-        # 適応度計算
+        # 個体群すべての個体の適応度(fitness・weight)計算
         for agent in self.population:
             agent.calc_fitness(self.items, self.max_weight)
-            
-        # 個体群の情報出力
+        
+        # 現世代の個体群の情報出力(uniqueな解のみ出力)
         self.print_population()
 
         # 選択，交叉
         while len(self.offspring) < len(self.population):
+            # 選択(親を２個体選出)
+            # ルーレット選択
             parent = self.roulette_selection()
-            self.crossover(parent[0], parent[1])
+            # トーナメント選択
+            # parent = self.tournament_selection()
+            
+            # 交叉(選択された親２個体を用いて子２個体を作成→offspringに格納)
+            # 一点交叉
+            # self.crossoverOnePoint(parent[0], parent[1])
+            # 一様交叉
+            self.crossoverUniform(parent[0], parent[1])
+
 
         # 突然変異
         for agent in self.population:
             if random.random() < self.mutation_rate:
                 self.mutate(agent)
-        # 世代交代    
+
+        # 世代交代
         self.generation_change()
     
     # 個体群の情報出力
     def print_population(self):
         ind1 = []
         for i in self.population:
+            # 選択された(1)顧客をindに追加していく
             ind = [i for i, x in enumerate(i.gene) if x == 1]
             ind1.append(ind)
-            arr = list(map(list, set(map(tuple, ind1)))) #最終結果のインデックスをリストとして表示([[0,1,5,9], [0,2,5,8]]的な)
-            #ind2 = set(ind1)
+            # 最終結果のインデックスをリストとして表示(ex.[[0,1,5,9], [0,2,5,8]])
+            # ここで解が被らないように記憶させる
+            arr = list(map(list, set(map(tuple, ind1))))
+            # ind2 = set(ind1)
         return arr
-    
-    # 集団の平均適応度
-    def mean_fitness(self):
-        fitness = []
-        for i in self.population:
-            fitness.append(i.fitness)
-            
-        return mean(fitness)
-            
-    # 集団の最大適応度
-    def max_fitness(self):
-        fitness = []
-        for i in self.population:
-            fitness.append(i.fitness)
-        
-        return max(fitness)
+
+
+
+N = 100        # 個体数
+GENERATION = 50 # 世代数
+
+
+#選択された観光地を表示
+#cal(ITEMS) = [[0, 1, 3, 5, 6, 7], [0, 1, 3, 5, 6]]
+def cal(ITEMS, MAX_WEIGHT):
+    sim = Simulation(ITEMS, MAX_WEIGHT, N) 
+    for _ in range(GENERATION):
+        sim.solve()
+    return sim.print_population()
 
 
 """こっからセールスマン問題"""
@@ -214,8 +257,6 @@ def local_search(visit_order, distance_matrix, improve_func):
     return visit_order
 
 
-
-'''8/28追加 ココカラ'''
 #30×30
 distance_matrix = np.array([
     [ 0, 80, 40, 35, 35, 40, 60, 40, 40, 40, 40, 45, 50, 50, 40, 40, 40, 50, 40, 40, 90, 90, 90, 40, 50, 20, 50, 80, 70, 90],
@@ -249,18 +290,6 @@ distance_matrix = np.array([
     [70, 70, 70, 50, 45, 60, 75, 60, 60, 60, 60, 60, 55, 60, 55, 45, 60, 75, 50, 50, 120, 120, 130, 40, 45, 60, 60, 90, 0, 135],
     [90, 120, 90, 70, 80, 65, 80, 100, 75, 75, 75, 100, 75, 70, 80, 90, 85, 80, 100, 100, 110, 100, 130, 100, 105, 80, 100, 160, 135, 0]
     ])
-
-
-N = 100        # 個体数
-GENERATION = 100 # 世代数
-
-#選択された観光地を表示
-#cal(ITEMS) = [[0, 1, 3, 5, 6, 7], [0, 1, 3, 5, 6]]
-def cal(ITEMS, MAX_WEIGHT):
-    sim = Simulation(ITEMS, MAX_WEIGHT, N) 
-    for _ in range(GENERATION):
-        sim.solve()
-    return sim.print_population()
 
 def select_spot(name1, name2, name3, name4, name5, name6, name7, name8, name9):
     if name1 == "1":
@@ -314,17 +343,7 @@ def select_spot(name1, name2, name3, name4, name5, name6, name7, name8, name9):
     return selection
 
 
-def item(name1, name2, name3, name4, name5, name6, name7, name8, name9):
-    # priority = [[50, 20, 40, 30, 10, 50, 60, 20, 80],
-    #             [50, 20, 40, 50, 10, 90, 60, 20, 70],
-    #             [30, 30, 40, 40, 10, 20, 40, 20, 60],
-    #             [40, 40, 40, 20, 60, 10, 60, 10, 30],
-    #             [40, 50, 40, 10, 70, 50, 30, 10, 50],
-    #             [10, 40, 50, 80, 30, 40, 10, 10, 30],
-    #             [20, 10, 80, 60, 20, 70, 60, 30, 40],
-    #             [60, 20, 90, 40, 10, 60, 20, 60, 30],
-    #             [70, 30, 10, 20, 70, 60, 10, 80, 20]]
-    
+def item(name1, name2, name3, name4, name5, name6, name7, name8, name9):    
     selection = select_spot(name1, name2, name3, name4, name5, name6, name7, name8, name9)
 
     a = 60
@@ -418,6 +437,7 @@ def result():
             reload = 0 # 候補数を記録
             trial = 0 # 試行回数の記録
             count = 0 # 時間制約違反を抜いた候補数
+            appear_dup = [] #表示用(被りあり)
             appear = [] #表示用
             while reload <= 3:
                 trial += 1
@@ -562,7 +582,9 @@ def result():
                         update_time += 60
                     total_time.append(update_time)
                     
-                    appear.append([spot_name, priority, h, min, update_time])
+                    appear_dup.append([spot_name, priority, h, min, update_time])
+                    seen = []
+                    appear = [x for x in appear_dup if x not in seen and not seen.append(x)]
                         
             
                     # if total_time[k] >= MAX_TIME: #制限時間超えたら0にする
@@ -591,12 +613,16 @@ def result():
             for p in range(len(appear)):
                 length_appear.append(len(appear[p][0]))
             
-            # 表示する候補の制限(最大３ルートまで表示)
-            length_disp = np.min([3, len(appear)])
+
+            with open('data/result_data.csv', 'a') as f:
+                writer = csv.writer(f)
+                writer.writerow(appear[0][0])
+                writer.writerow(appear[1][0])
+                writer.writerow(appear[2][0])
 
         return render_template('result.html', solution = solution, total_time = total_time, 
                                             visit_spot = visit_spot, appear = appear, candidateCount = candidateCount, No = No, 
-                                            length_appear = length_appear, length_disp = length_disp)
+                                            length_appear = length_appear)
             
 
 if __name__ == "__main__":

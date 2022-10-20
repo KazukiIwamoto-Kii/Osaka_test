@@ -30,7 +30,7 @@
         <div class="tab-panel">
             <!--タブ-->
             <ul class="tab-group">
-                {% for k in range(length_disp) %}
+                {% for k in range(3) %}
                 {% if k == 0 %}
                 <li class="tab tab{{ k }} is-active">ルート{{ k+1 }}</li>
                 {% else %}
@@ -41,7 +41,7 @@
             
             <!--タブを切り替えて表示するコンテンツ-->
             <div class="panel-group">
-                {% for k in range(length_disp) %}
+                {% for k in range(3) %}
                 {% if k == 0 %}
                     <div class="panel tab{{ k }} is-show">
                         {% for n in range(length_appear[k]) %}
