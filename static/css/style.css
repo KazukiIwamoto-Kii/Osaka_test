@@ -52,7 +52,7 @@ body {
 
     .note p{
         margin: 0;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 600;
     }
 
@@ -220,9 +220,8 @@ body {
         left: 0;
         font-size: 18px;
         font-weight: 500;
-        border: 2px solid #333;
+        border: 3px solid rgb(27, 27, 27);
         border-radius: 10px;
-        cursor: pointer;
     }
 
     .pic{
@@ -261,6 +260,7 @@ body {
         transform: scale(1.1);
         position: relative;
         border: none;
+        cursor: pointer;
     }
 
     input[type="checkbox"]:checked + img{
@@ -465,8 +465,9 @@ body {
     }
 
     .note{
-        margin-top: 40px;
-        padding-left: 10%;
+        margin-top: 50px;
+        padding-left: 5%;
+        font-size: 12px;
     }
 
     .note p{
@@ -666,6 +667,7 @@ body {
         transform: scale(1.1);
         position: relative;
         border: none;
+        cursor: pointer;
     }
 
     input[type="checkbox"]:checked + img{
