@@ -1,4 +1,4 @@
-from faulthandler import cancel_dump_traceback_later
+# from faulthandler import cancel_dump_traceback_later
 from itertools import count
 from flask import Flask, render_template, request, flash, get_flashed_messages, redirect, session, url_for
 import random
@@ -626,4 +626,4 @@ def result():
             
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(host = localhost, port=8888, debug = True)

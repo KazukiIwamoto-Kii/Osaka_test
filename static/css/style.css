@@ -45,15 +45,24 @@ body {
         letter-spacing: 3px;
     }
 
+    .note{
+        margin-top: 90px;
+        padding-left: 5%;
+        font-size: 18px;
+    }
+
+    .note p{
+        margin: 0;
+    }
+
     .form_block{
         width: 84%;
         display: inline-block;
-        margin-top: 85px;
     }
 
     .form{
         position: relative;
-        height: 550px;
+        height: 500px;
         margin: 1% 5% 0 5%;
         background-color: #fcfcfc;
         border: 2px solid #363636;
@@ -63,7 +72,7 @@ body {
     .select_menu{
         position: absolute;
         width: 69%;
-        height: 550px;
+        height: 500px;
         margin-left: 1%;
         padding: 15px;
     }
@@ -209,9 +218,8 @@ body {
         left: 0;
         font-size: 18px;
         font-weight: 500;
-        border: 2px solid #333;
+        border: 3px solid rgb(27, 27, 27);
         border-radius: 10px;
-        cursor: pointer;
     }
 
     .pic{
@@ -250,10 +258,15 @@ body {
         transform: scale(1.1);
         position: relative;
         border: none;
+        cursor: pointer;
     }
 
     input[type="checkbox"]:checked + img{
         opacity: 0.85;
+    }
+
+    input[type="checkbox"]:disabled + img{
+        opacity: 0.2;
     }
 
     .select_option{
@@ -442,10 +455,19 @@ body {
         font-size: 20px;
     }
 
+    .note{
+        margin-top: 60px;
+        padding-left: 5%;
+        font-size: 12px;
+    }
+
+    .note p{
+        margin: 0;
+    }
+
     .form_block{
         width: 100%;
         display: block;
-        margin-top: 35px;
     }
 
     .form{
@@ -633,6 +655,7 @@ body {
         transform: scale(1.1);
         position: relative;
         border: none;
+        cursor: pointer;
     }
 
     input[type="checkbox"]:checked + img{
