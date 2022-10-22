@@ -30,6 +30,10 @@
     <div id='loading' style='display:none;'></div>
 
     <main>
+        <div class = "note">
+            <p>観光地を選ぶと観光ルートを自動で生成</p>
+            <p>まずは行きたい場所を選んでね！</p>
+        </div>
         <div class = "form_block">
             
             <form action ='/result' method = "POST" class = "form">
@@ -37,21 +41,21 @@
                     <div id="select_line_1">
                         <div class = "select1">
                             <div class = "check">
-                                <input type="checkbox" name = "name1" id = "OsakaAquarium" value = "1">
+                                <input type="checkbox" name = "name1" class = "name" value = "1" onclick = "checkLimit()">
                                 <img class = "pic" src="./static/images/OsakaAquarium.jpg" alt="海遊館">
                                 <label for = "name1" class = "label">海遊館</label>
                             </div>
                         </div>
                         <div class = "select2">
                             <div class = "check">
-                                <input type="checkbox" name = "name2" class = "name" value = "2">
+                                <input type="checkbox" name = "name2" class = "name" value = "2" onclick = "checkLimit()">
                                 <img class = "pic" src="./static/images/BanpakuPark.jpg" alt="万博公園">
                                 <label for="name2" class = "label">万博公園</label>
                             </div>
                         </div>
                         <div class = "select3">
                             <div class = "check">
-                                <input type="checkbox" name = "name3" class = "name" value = "3">
+                                <input type="checkbox" name = "name3" class = "name" value = "3" onclick = "checkLimit()">
                                 <img class = "pic" src="./static/images/USJ.jpg" alt="USJ">
                                 <label for="name3" class = "label">USJ</label>
                             </div>
@@ -60,21 +64,21 @@
                     <div id="select_line_2">
                         <div class = "select4">
                             <div class = "check">
-                                <input type="checkbox" name = "name4" class = "name" value = "4">
+                                <input type="checkbox" name = "name4" class = "name" value = "4" onclick = "checkLimit()">
                                 <img class = "pic" src="./static/images/Namba.jpg" alt="なんば">
                                 <label for="name4" class = "label">なんば</label>
                             </div>
                         </div>
                         <div class = "select5">
                             <div class="check">
-                                <input type="checkbox" name = "name5" class = "name" value = "5">
+                                <input type="checkbox" name = "name5" class = "name" value = "5" onclick = "checkLimit()">
                                 <img class = "pic" src="./static/images/Umeda.jpg" alt="梅田">
                                 <label for="name5" class = "label">梅田</label>
                             </div>
                         </div>
                         <div class = "select6">
                             <div class="check">
-                                <input type="checkbox" name = "name6" class = "name" value = "6">
+                                <input type="checkbox" name = "name6" class = "name" value = "6" onclick = "checkLimit()">
                                 <img class = "pic" src="./static/images/Tennoji.jpg" alt="天王寺">
                                 <label for="name6" class = "label">天王寺</label>
                             </div>
@@ -83,21 +87,21 @@
                     <div id="select_line_3">
                         <div class = "select7">
                             <div class="check">
-                                <input type="checkbox" name = "name7" class = "name" value = "7">
+                                <input type="checkbox" name = "name7" class = "name" value = "7" onclick = "checkLimit()">
                                 <img class = "pic" src="./static/images/NagaiPark.jpg" alt="長居公園">
                                 <label for="name7" class = "label">長居公園</label>
                             </div>
                         </div>
                         <div class = "select8">
                             <div class="check">
-                                <input type="checkbox" name = "name8" class = "name" value = "8">
+                                <input type="checkbox" name = "name8" class = "name" value = "8" onclick = "checkLimit()">
                                 <img class = "pic" src="./static/images/OsakaCastle.jpg" alt="大阪城">
                                 <label for="name8" class = "label">大阪城</label>
                             </div>
                         </div>
                         <div class = "select9">
                             <div class="check">
-                                <input type="checkbox" name = "name9" class = "name" value = "9">
+                                <input type="checkbox" name = "name9" class = "name" value = "9" onclick = "checkLimit()">
                                 <img class = "pic" src="./static/images/Tsutenkaku.jpg" alt="新世界">
                                 <label for="name9" class = "label">新世界</label>
                             </div>

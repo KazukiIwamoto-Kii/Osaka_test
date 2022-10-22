@@ -26,3 +26,28 @@ function hideLoading(){
     loadingMessage.style.display = 'none';
 
 }
+
+function checkLimit(){
+    var count = 0;
+    var Check = document.getElementsByClassName("name");
+    for (i = 0; i < Check.length; i++){
+        Flag[i] = i;
+        if(Check[i].checked){
+            Flag[i] = "chk";
+            count++;
+        }
+    }
+    if (count >= 3){
+        for (i = 0; i < Check.length; i++){
+            if (Flag[i] == "chk"){
+                Check[i].disabled = false;
+            } else {
+                Check[i].disabled = true;
+            }
+        }
+    } else {
+        for (i = 0; i < Check.length; i++){
+            Check[i].disabled = false;
+        }
+    }
+}
