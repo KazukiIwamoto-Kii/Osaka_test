@@ -369,16 +369,19 @@ body {
         width: 100%;
     }
 
+    .load{
+        position: relative;
+    }
+
     #loading-message {
         position: absolute; /* 親要素からの相対位置になるようにする */
         z-index: 10; /* z軸を上げる */
         font-size: 26px;
         font-weight: 700;
-        top: 210px;  /* marginまでセットでいい感じに親要素の真ん中になる */
-        bottom: 0;
-        width: 20%;
-        left: 40%;
-        right: 40%;
+        top: 150px;  /* marginまでセットでいい感じに親要素の真ん中になる */
+        width: 40%;
+        left: 20%;
+        right: 20%;
         margin: auto;
         text-align: center;
     }
@@ -387,8 +390,7 @@ body {
     #loading {
         position: absolute; /* 親要素からの相対位置になるようにする */
         z-index: 10; /* z軸を上げる */
-        top: 80px;  /* marginまでセットでいい感じに親要素の真ん中になる */
-        bottom: 0;
+        top: 200px;  /* marginまでセットでいい感じに親要素の真ん中になる */
         left: 0;
         right: 0;
         margin: auto;
@@ -780,16 +782,14 @@ body {
 
     .load{
         position: relative;
-
     }
 
     #loading-message {
         position: absolute;
         z-index: 10;
-        font-size: 24px;
+        font-size: 22px;
         font-weight: 700;
         top: 120px;
-        bottom: 0;
         width: 80%;
         left: 10%;
         right: 10%;
@@ -797,17 +797,15 @@ body {
         text-align: center;
     }
 
-    /* ローディングアイコン */
     #loading {
         position: absolute;
         z-index: 10;
-        top: 270px;
-        bottom: 0;
+        top: 165px;
         left: 0;
         right: 0;
         margin: auto;
-        width: 200px;
-        height: 200px;
+        width: 180px;
+        height: 180px;
         border-radius: 50%; /* 50% 丸めるとまるくなる */
         border: 8px solid #2d2d2d;  /* 先の太さや色になる */
         border-right-color: transparent;  /* 右側を透過することで1/4だけ空いた円になる */

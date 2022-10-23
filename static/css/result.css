@@ -226,15 +226,15 @@ body {
     /* タブ */
     .tab-panel{
         padding-top: 45px;
-        width: 90%;
-        margin: 0 5%;
+        width: 95%;
+        margin: 0 2.5%;
         justify-content: center;
     }
     
     .tab-group{
         display: flex;
         justify-content: center;
-        padding: 0px 5%;
+        padding: 0px 3%;
     }
     
     .tab{
@@ -263,9 +263,9 @@ body {
     }
     
     p{
-        font-size: 12px;
+        font-size: 10px;
         font-weight: bolder;
-        padding: 0px 20px;
+        padding: 0px 5px;
         margin: 0px;
     }
     
@@ -287,7 +287,7 @@ body {
     
     .spot{
         padding-left: 20px;
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 600;
     }
     
@@ -314,13 +314,5 @@ body {
         text-decoration: underline;
         font-size: 16px;
         font-weight: 600;
-    }
-    
-    .result{
-        padding-top: 20px;
-    }
-    
-    .test{
-        padding-top: 20px;
     }
 }
